@@ -8,6 +8,27 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "prettier": {
+    "the following options customize prettier beyond defaults": null,
+    "experimentalTernaries": true,
+    "semi": false,
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "trailingComma": "all",
+    "the following options simply require default settings": null,
+    "printWidth": 80,
+    "tabWidth": 2,
+    "useTabs": false,
+    "quoteProps": "as-needed",
+    "bracketSpacing": true,
+    "bracketSameLine": false,
+    "arrowParens": "always",
+    "insertPragma": false,
+    "proseWrap": "preserve",
+    "htmlWhitespaceSensitivity": "css",
+    "embeddedLanguageFormatting": "auto",
+    "singleAttributePerLine": false
+  },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
