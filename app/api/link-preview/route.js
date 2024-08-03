@@ -22,7 +22,7 @@ export async function GET(request) {
         error: 'Failed to fetch link preview',
         details: error.message,
       },
-      { status: 500 }
+      { status: 500 },
     )
   }
 }
