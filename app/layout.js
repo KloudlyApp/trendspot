@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { ModeToggle } from "@/components/ui/mode-toggle";
-import Header from "./components/Header";
+import Header from "./components/Profile";
 import Updates from "./components/Updates";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,9 +21,9 @@ export default function RootLayout({ children }) {
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange>
-          <Header />
+   
           {children}
-          <Updates/>
+         
         </ThemeProvider>
       </body>
     </html>
