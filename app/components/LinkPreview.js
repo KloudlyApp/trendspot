@@ -1,13 +1,13 @@
-import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import Link from 'next/link'
+import React, { useState, useEffect } from 'react'
 
 const cache = {};
 const CACHE_DURATION = 60 * 60 * 1000; // Cache for 5 minutes
 
 const LinkPreview = ({ url }) => {
-  const [previewData, setPreviewData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [previewData, setPreviewData] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchPreviewData = async () => {
@@ -49,30 +49,30 @@ const LinkPreview = ({ url }) => {
           setLoading(false);
         }
       }
-    };
+    }
 
-    fetchPreviewData();
-  }, [url]);
+    fetchPreviewData()
+  }, [url])
 
   const fetchTikTokInfo = async (url) => {
     try {
       const response = await fetch(
-        `https://www.tiktok.com/oembed?url=${encodeURIComponent(url)}`
-      );
-      const responseJSON = await response.json();
-      return responseJSON;
+        `https://www.tiktok.com/oembed?url=${encodeURIComponent(url)}`,
+      )
+      const responseJSON = await response.json()
+      return responseJSON
     } catch (error) {
-      console.error("Error fetching TikTok embed info:", error);
-      return {};
+      console.error('Error fetching TikTok embed info:', error)
+      return {}
     }
-  };
+  }
 
-  if (loading) return <div>Loading preview...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <div>Loading preview...</div>
+  if (error) return <div>Error: {error}</div>
   if (!previewData) {
-    return null;
+    return null
   } else {
-    console.log(previewData);
+    console.log(previewData)
   }
 
   return (
@@ -97,8 +97,8 @@ const LinkPreview = ({ url }) => {
         </h1>
       </div>
     </Link>
-  );
-};
+  )
+}
 
 export default LinkPreview;
 

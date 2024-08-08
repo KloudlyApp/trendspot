@@ -7,5 +7,5 @@ export default function Home() {
     <main className="flex min-h-screen  w-full bg-[#454444] justify-around">
       <SectionContainer />
     </main>
-  );
+  )
 }

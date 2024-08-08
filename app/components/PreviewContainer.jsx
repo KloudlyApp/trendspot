@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import LinkPreview from "./LinkPreview";
+import React from 'react'
+import LinkPreview from './LinkPreview'
 
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -15,19 +15,19 @@ import UpdateCard from "./UpdateCard";
 
 function PreviewContainer() {
   const slugs_og = [
-    "ZPRoQcyHY",
-    "ZPRoQGYuR",
-    "ZPRoQEvXT",
-    "ZPRoQoRyS",
-    "ZPRoQXVpp",
-    "ZPRoQWr8o",
-    "ZPRoC1MUJ",
-    "ZPRoQGKTG",
-    "ZPRoQfkWq",
-    "ZPRoQEuLs",
-    "ZPRoQ4rKA",
-  ];
-  const slugs = ["ZPRoQGKTG", "ZPRoQfkWq", "ZPRoQEuLs", "ZPRoQ4rKA"];
+    'ZPRoQcyHY',
+    'ZPRoQGYuR',
+    'ZPRoQEvXT',
+    'ZPRoQoRyS',
+    'ZPRoQXVpp',
+    'ZPRoQWr8o',
+    'ZPRoC1MUJ',
+    'ZPRoQGKTG',
+    'ZPRoQfkWq',
+    'ZPRoQEuLs',
+    'ZPRoQ4rKA',
+  ]
+  const slugs = ['ZPRoQGKTG', 'ZPRoQfkWq', 'ZPRoQEuLs', 'ZPRoQ4rKA']
   return (
     <>
       <div className=" hidden lg:grid my-10 grid-cols-1 md:grid-cols-4 gap-6 w-full place-items-center   ">
@@ -62,4 +62,4 @@ function PreviewContainer() {
   );
 }
 
-export default PreviewContainer;
+export default PreviewContainer

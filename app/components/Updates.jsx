@@ -39,7 +39,7 @@ function Updates() {
 
       <TrendSpotCarouselUpdate information={updatesArray} />
     </div>
-  );
+  )
 }
 
-export default Updates;
+export default Updates
