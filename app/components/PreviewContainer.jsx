@@ -1,57 +1,52 @@
-"use client";
+'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import LinkPreview from './LinkPreview'
 
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from '@/components/ui/card'
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
-import UpdateCard from "./UpdateCard";
+} from '@/components/ui/carousel'
 
 function PreviewContainer() {
-  const slugs_og = [
-    'ZPRoQcyHY',
-    'ZPRoQGYuR',
-    'ZPRoQEvXT',
-    'ZPRoQoRyS',
-    'ZPRoQXVpp',
-    'ZPRoQWr8o',
-    'ZPRoC1MUJ',
-    'ZPRoQGKTG',
-    'ZPRoQfkWq',
-    'ZPRoQEuLs',
-    'ZPRoQ4rKA',
-  ]
-  const slugs = ['ZPRoQGKTG', 'ZPRoQfkWq', 'ZPRoQEuLs', 'ZPRoQ4rKA']
+  const [sampleData, setSampleData] = useState([])
+
+  useEffect(() => {
+    fetch('/api/sample-data')
+      .then((response) => response.json())
+      .then((data) => setSampleData(data.slice(0, 20))) // this is where you can add different filters to the displayed data
+      .catch((error) => console.error('Error: ', error))
+  }, [])
+
   return (
     <>
-      <div className=" hidden lg:grid my-10 grid-cols-1 md:grid-cols-4 gap-6 w-full place-items-center   ">
-        {slugs_og.map((slug) => {
-          return <LinkPreview url={`https://www.tiktok.com/t/${slug}`} key={Math.random() + slug}/>;
-        })}
-      </div>
-
-      <div className=" h-fit my-10  flex justify-center lg:hidden">
-        <Carousel className=" w-[80%] ">
-          <CarouselContent className="">
-            {slugs_og.map((slug) => {
+      <div className=' h-fit my-10  flex justify-center'>
+        <Carousel className=' w-[80%] '>
+          <CarouselContent className=''>
+            {sampleData.map((item) => {
               return (
                 <CarouselItem
-                  key={Math.random() + slug}
-                  className=" h-full w-[20px]
-                  ">
-                  <Card className=" ">
-                    <CardContent className="flex  items-center justify-center p-6">
-                      <LinkPreview url={`https://www.tiktok.com/t/${slug}`} />
+                  key={Math.random() + item.slug}
+                  className=' h-full w-[20px]
+                  '
+                >
+                  <Card className='text-white'>
+                    <h1>tag: {item.tag}</h1>
+                    <h1>type: {item.type}</h1>
+                    <h1>niche: {item.niche}</h1>
+                    <h1>trendingDate: {item.trendingDate}</h1>
+                    <CardContent className='flex  items-center justify-center p-6'>
+                      <LinkPreview
+                        url={`https://www.tiktok.com/t/${item.slug}`}
+                      />
                     </CardContent>
                   </Card>
                 </CarouselItem>
-              );
+              )
             })}
           </CarouselContent>
           <CarouselPrevious />
@@ -59,7 +54,7 @@ function PreviewContainer() {
         </Carousel>
       </div>
     </>
-  );
+  )
 }
 
 export default PreviewContainer
