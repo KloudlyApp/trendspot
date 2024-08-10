@@ -24,7 +24,7 @@ function PreviewContainer() {
 
   return (
     <>
-      <div className=' h-fit my-10  flex justify-center md:hidden'>
+      <div className=' h-fit my-10  flex justify-center md:hidden '>
         <Carousel className=' w-[80%] '>
           <CarouselContent className=''>
             {sampleData.map((item) => {

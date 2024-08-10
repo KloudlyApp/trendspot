@@ -11,8 +11,8 @@ function DetailCard() {
  console.log();
  
   return (
-    <div className="flex flex-col text-white  ">
-      <div className=" flex justify-around bg-black mt-12 py-4 rounded-md shadow-blue-700/90 shadow-md ">
+    <div className="flex flex-col text-white lg:mb-8 lg:w-full lg:p-6 ">
+      <div className=" flex justify-around bg-black mt-12 py-4 rounded-md shadow-[#7A8EFF] shadow-md ">
         <TrendSpot_DropDown />
         <div className="relative">
           <p className="cursor-pointer hover:scale-105 transition-all delay-100" onClick={()=>{setToggleCalendar(!toggleCalendar)}} >{date.toLocaleDateString()} </p>
@@ -28,7 +28,7 @@ function DetailCard() {
               mode="single"
               selected={date}
               onSelect={setDate}
-              className="rounded-md justify-center item-center w-fit mx-auto bg-blue-700/70 mt-4  "
+              className="rounded-md justify-center item-center w-fit mx-auto bg-[#5A53A7] mt-4  "
             />
           )}
     </div>

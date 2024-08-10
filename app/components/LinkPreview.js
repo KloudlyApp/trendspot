@@ -86,17 +86,17 @@ const LinkPreview = ({ url }) => {
       className='flex gap-72 rounded-lg shadow-md overflow-hidden relative hover:shadow-lg transition-shadow duration-300 w-full '
     >
       {previewData.images && previewData.images.length > 0 && (
-        <div className='w-full max-h-[300px] flex'>
+        <div className='w-full  flex'>
           <img
             src={previewData.images[0]}
             alt={previewData.title}
-            className='object-fill w-full h-[260px] max-h-[300px]'
+            className='object-fill w-full h-[260px] aspect-square'
           />
         </div>
       )}
 
-      <div className='absolute inset-x-0 bottom-0 bg-gray-700 bg-opacity-60 p-4'>
-        <h1 className='font-bold text-white overflow-hidden text-ellipsis whitespace-normal break-words max-h-28 text-sm overflow-y-scroll'>
+      <div className='absolute inset-x-0 bottom-0 bg-[#7A8EFF] bg-opacity-60 p-4'>
+        <h1 className='font-bold text-white overflow-hidden text-ellipsis whitespace-normal break-words max-h-12 text-sm overflow-y-scroll '>
           {previewData.title}
         </h1>
       </div>

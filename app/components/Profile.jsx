@@ -31,7 +31,7 @@ function Profile() {
           variant='ghost'
           className='bg-[#7F8CFC] hover:scale-105 transition-all delay-100 hover:!bg-[#7F8CFC] text-white'
         >
-          <FaDiscord className='mr-2' color={'bg-[#7F8CFC] '} size={20} />{' '}
+          <FaDiscord className='mr-2' color={' '} size={20} />{' '}
           Discord
         </Button>
       </div>
