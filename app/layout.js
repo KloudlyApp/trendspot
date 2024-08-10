@@ -15,14 +15,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.className} relative dark:bg-black flex justify-between`}
       >
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
+        
           {children}
-        </ThemeProvider>
+        
       </body>
     </html>
   )

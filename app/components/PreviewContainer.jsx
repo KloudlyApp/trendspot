@@ -24,7 +24,7 @@ function PreviewContainer() {
 
   return (
     <>
-      <div className=' h-fit my-10  flex justify-center'>
+      <div className=' h-fit my-10  flex justify-center md:hidden'>
         <Carousel className=' w-[80%] '>
           <CarouselContent className=''>
             {sampleData.map((item) => {
@@ -35,10 +35,10 @@ function PreviewContainer() {
                   '
                 >
                   <Card className='text-white'>
-                    <h1>tag: {item.tag}</h1>
+                    {/* <h1>tag: {item.tag}</h1>
                     <h1>type: {item.type}</h1>
                     <h1>niche: {item.niche}</h1>
-                    <h1>trendingDate: {item.trendingDate}</h1>
+                    <h1>trendingDate: {item.trendingDate}</h1> */}
                     <CardContent className='flex  items-center justify-center p-6'>
                       <LinkPreview
                         url={`https://www.tiktok.com/t/${item.slug}`}
@@ -49,9 +49,21 @@ function PreviewContainer() {
               )
             })}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className='bg-black hover:bg-black' />
+          <CarouselNext className='bg-black hover:bg-black' />
         </Carousel>
+      </div>
+
+      <div className='grid grid-cols-4'>
+        {sampleData.map((item) => {
+          return (
+            <Card className='text-white' key={item+Math.random()}>
+              <CardContent className='flex  items-center justify-center h-full'>
+                <LinkPreview url={`https://www.tiktok.com/t/${item.slug}`} />
+              </CardContent>
+            </Card>
+          )
+        })}
       </div>
     </>
   )

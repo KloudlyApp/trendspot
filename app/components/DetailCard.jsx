@@ -11,16 +11,18 @@ function DetailCard() {
  console.log();
  
   return (
-    <div className="flex flex-col  ">
+    <div className="flex flex-col text-white  ">
       <div className=" flex justify-around bg-black mt-12 py-4 rounded-md shadow-blue-700/90 shadow-md ">
         <TrendSpot_DropDown />
         <div className="relative">
-          <p className="cursor-pointer hover:scale-110 transition-all delay-100" onClick={()=>{setToggleCalendar(!toggleCalendar)}} >{date.toLocaleDateString()} </p>
+          <p className="cursor-pointer hover:scale-105 transition-all delay-100" onClick={()=>{setToggleCalendar(!toggleCalendar)}} >{date.toLocaleDateString()} </p>
           
         </div>
-        <p className="hover:scale-110 transition-all delay-100 cursor-pointer">Filter</p>
+        <p className="hover:scale-105 transition-all delay-100 cursor-pointer">Filter</p>
       </div>
 
+      
+      <a href=""/>
       {toggleCalendar && (
             <Calendar
               mode="single"

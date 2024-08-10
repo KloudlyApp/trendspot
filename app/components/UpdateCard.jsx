@@ -11,12 +11,12 @@ function UpdateCard({date, message}) {
             <IoLogoTwitter size={50} color="#1D9BF0" className="p-1" />
           </div>
           <div className="">
-            <h2 className="font-bold">Daniel</h2>
-            <p>{date }</p>
+            <h2 className="font-bold  text-white">Daniel</h2>
+            <p className=" text-white">{date }</p>
           </div>
         </div>
 
-        <p>
+        <p className=" text-white">
           {message}
         </p>
       </div>

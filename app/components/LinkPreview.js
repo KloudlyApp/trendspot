@@ -1,8 +1,10 @@
+import { Skeleton } from '@/components/ui/skeleton'
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 
-const cache = {};
-const CACHE_DURATION = 60 * 60 * 1000; // Cache for 5 minutes
+
+const cache = {}
+const CACHE_DURATION = 60 * 60 * 1000
 
 const LinkPreview = ({ url }) => {
   const [previewData, setPreviewData] = useState(null)
@@ -11,42 +13,42 @@ const LinkPreview = ({ url }) => {
 
   useEffect(() => {
     const fetchPreviewData = async () => {
-      const cachedData = cache[url];
+      const cachedData = cache[url]
 
       if (cachedData && Date.now() - cachedData.timestamp < CACHE_DURATION) {
         // Use cached data if it's still fresh
-        setPreviewData(cachedData.data);
-        setLoading(false);
+        setPreviewData(cachedData.data)
+        setLoading(false)
       } else {
         try {
           const response = await fetch(
-            `/api/link-preview?url=${encodeURIComponent(url)}`
-          );
-          if (!response.ok) throw new Error("Failed to fetch preview");
-          const data = await response.json();
+            `/api/link-preview?url=${encodeURIComponent(url)}`,
+          )
+          if (!response.ok) throw new Error('Failed to fetch preview')
+          const data = await response.json()
 
           // If it's a TikTok link and there's no image, fetch from TikTok's embed API
           if (
-            url.includes("tiktok.com") &&
+            url.includes('tiktok.com') &&
             (!data.images || data.images.length === 0)
           ) {
-            const tiktokData = await fetchTikTokInfo(url);
-            data.title = tiktokData.title;
+            const tiktokData = await fetchTikTokInfo(url)
+            data.title = tiktokData.title
             if (tiktokData.thumbnail_url) {
-              data.images = [tiktokData.thumbnail_url];
+              data.images = [tiktokData.thumbnail_url]
             } else {
-              data.images = ["/images/tiktok_placeholder.jpg"];
+              data.images = ['/images/tiktok_placeholder.jpg']
             }
           }
 
           // Cache the data with a timestamp
-          cache[url] = { data, timestamp: Date.now() };
-          setPreviewData(data);
+          cache[url] = { data, timestamp: Date.now() }
+          setPreviewData(data)
         } catch (err) {
-          console.error("Error fetching link preview:", err);
-          setError(err.message);
+          console.error('Error fetching link preview:', err)
+          setError(err.message)
         } finally {
-          setLoading(false);
+          setLoading(false)
         }
       }
     }
@@ -67,32 +69,34 @@ const LinkPreview = ({ url }) => {
     }
   }
 
-  if (loading) return <div>Loading preview...</div>
+  if (loading) return <div><Skeleton className="h-[260px] w-[300px] rounded-xl" /></div>
   if (error) return <div>Error: {error}</div>
   if (!previewData) {
     return null
   } else {
-    console.log(previewData)
+    console.log(previewData.images[0])
   }
 
   return (
     <Link
       key={url}
       href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="bg-red-400 flex gap-72 rounded-lg shadow-md overflow-hidden relative hover:shadow-lg transition-shadow duration-300 w-full"
+      target='_blank'
+      rel='noopener noreferrer'
+      className='flex gap-72 rounded-lg shadow-md overflow-hidden relative hover:shadow-lg transition-shadow duration-300 w-full '
     >
       {previewData.images && previewData.images.length > 0 && (
-        <img
-          src={previewData.images[0]}
-          alt={previewData.title}
-          className="w-full h-[80%] object-cover max-h-[400px]"
-        />
+        <div className='w-full max-h-[300px] flex'>
+          <img
+            src={previewData.images[0]}
+            alt={previewData.title}
+            className='object-fill w-full h-[260px] max-h-[300px]'
+          />
+        </div>
       )}
 
-      <div className="absolute inset-x-0 bottom-0 bg-gray-700 bg-opacity-60 p-4">
-        <h1 className="font-bold text-white overflow-hidden text-ellipsis whitespace-normal break-words max-h-28 text-sm overflow-y-scroll">
+      <div className='absolute inset-x-0 bottom-0 bg-gray-700 bg-opacity-60 p-4'>
+        <h1 className='font-bold text-white overflow-hidden text-ellipsis whitespace-normal break-words max-h-28 text-sm overflow-y-scroll'>
           {previewData.title}
         </h1>
       </div>
@@ -100,5 +104,4 @@ const LinkPreview = ({ url }) => {
   )
 }
 
-export default LinkPreview;
-
+export default LinkPreview
