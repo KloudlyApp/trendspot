@@ -34,9 +34,7 @@ function Updates() {
  
 
   return (
-    <div className="h-full flex justify-center">
-      
-
+    <div className="h-full flex  ">
       <TrendSpotCarouselUpdate information={updatesArray} />
     </div>
   )

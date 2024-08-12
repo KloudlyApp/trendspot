@@ -32,20 +32,20 @@ export function TrendSpotCarouselUpdate({ information }) {
 
   return (
     <>
-      <div className=' lg:hidden mr-5  place-self-center '>
+      <div className=' lg:hidden place-self-center '>
         <Carousel
           setApi={setApi}
           className='w-full max-w-xs '
           opts={{ loop: false }}
         >
-          <CarouselContent className=''>
+          <CarouselContent className='h-[400px]'>
             {information?.map(({ randomDate, update }) => (
               <CarouselItem
                 key={update}
-                className='ml-2 hover:scale-105 transition-all delay-100 '
+                className=' hover:scale-105 transition-all delay-100 '
               >
-                <Card className=''>
-                  <CardContent className='flex  items-center justify-center p-6 '>
+                <Card className='h-full'>
+                  <CardContent className='flex  items-center justify-center p-6 h-[400px]'>
                     <UpdateCard date={randomDate} message={update} />
                   </CardContent>
                 </Card>
@@ -55,7 +55,7 @@ export function TrendSpotCarouselUpdate({ information }) {
           <CarouselPrevious className='bg-black hover:bg-black'/>
           <CarouselNext className='bg-black hover:bg-black' />
         </Carousel>
-        <div className='py-2 text-center text-sm text-muted-foreground text-white'>
+        <div className='py-2 text-center text-sm text-muted-foreground text-white hidden'>
           Update {current}.
         </div>
       </div>
@@ -67,14 +67,14 @@ export function TrendSpotCarouselUpdate({ information }) {
         orientation='vertical'
         className='w-full max-w-xs hidden lg:flex '
       >
-        <CarouselContent className='-mt-0 h-[200px] '>
+        <CarouselContent className='-mt-0 h-[300px] '>
           {information?.map(({ randomDate, update }) => (
             <CarouselItem
               key={update}
               className='hover:scale-105 transition-all delay-100'
             >
               <Card className=''>
-                <CardContent className='flex  rounded  '>
+                <CardContent className='flex  rounded items-center justify-center  gap-3  '>
                   <UpdateCard date={randomDate} message={update} />
                 </CardContent>
               </Card>

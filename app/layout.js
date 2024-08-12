@@ -1,6 +1,7 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/ui/theme-provider'
+import { GlobalStateProvider } from './context/filterContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,9 +16,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.className} relative dark:bg-black flex justify-between`}
       >
-        
-          {children}
-        
+        <GlobalStateProvider>{children}</GlobalStateProvider>
       </body>
     </html>
   )
