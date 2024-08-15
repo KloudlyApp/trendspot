@@ -4,8 +4,9 @@ import { createContext, useContext, useState } from 'react'
 const GlobalStateContext = createContext()
 
 export const GlobalStateProvider = ({ children }) => {
-  const [selectedCategory, setSelectedCategory] = useState('all')
-  const [selectedDate, setSelectedDate] = useState('2024-08-02T03:21:15Z')
+  const [selectedCategory, setSelectedCategory] = useState('tech')
+  const [selectedDate, setSelectedDate] = useState('11-06-2024')
+  const [    filterByDateArray, setfilterByDateArray] = useState([])
 
   return (
     <GlobalStateContext.Provider
@@ -14,6 +15,8 @@ export const GlobalStateProvider = ({ children }) => {
         setSelectedCategory,
         selectedDate,
         setSelectedDate,
+        filterByDateArray,
+        setfilterByDateArray
       }}
     >
       {children}
