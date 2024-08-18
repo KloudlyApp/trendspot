@@ -4,7 +4,7 @@ export async function GET() {
   return NextResponse.json(sampleUpdates)
 }
 
-const sampleUpdates = [
+ const sampleUpdates = [
   {
     id: '01J5GEFWZR6RWXMCHJDMHMXR7T',
     posted_date: '2024-04-05T03:44:29Z',

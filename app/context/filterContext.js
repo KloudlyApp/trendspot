@@ -5,7 +5,7 @@ const GlobalStateContext = createContext()
 
 export const GlobalStateProvider = ({ children }) => {
   const [selectedCategory, setSelectedCategory] = useState('tech')
-  const [selectedDate, setSelectedDate] = useState('11-06-2024')
+  const [selectedDate, setSelectedDate] = useState(new Date())
   const [    filterByDateArray, setfilterByDateArray] = useState([])
 
   return (

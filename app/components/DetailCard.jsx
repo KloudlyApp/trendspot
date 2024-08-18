@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useGlobalContext } from '../context/filterContext'
+import { IoClose } from 'react-icons/io5'
 
 function DetailCard() {
   const [date, setDate] = useState(new Date())
@@ -39,24 +40,43 @@ function DetailCard() {
       currentTime.getSeconds(),
     )
 
-    setDate(date)
+    setDate(selectedDate)
     setSelectedDate(combinedDate.toISOString())
     setToggleCalendar(!toggleCalendar)
   }
 
   const formatDate = (dateString) => {
     const date = new Date(dateString)
-    const day = date.getUTCDate().toString().padStart(2, '0')
-    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0')
-    const year = date.getUTCFullYear()
-    return `${day}-${month}-${year}`
+
+    const options = { month: 'short', day: 'numeric', year: 'numeric' }
+    const formattedDate = date.toLocaleDateString('en-US', options)
+
+    const day = date.getUTCDate()
+    const daySuffix = getDaySuffix(day)
+
+    return formattedDate.replace(day, `${day}${daySuffix}`)
   }
 
- 
+  const getDaySuffix = (day) => {
+    if (day > 3 && day < 21) return 'th'
+    switch (day % 10) {
+      case 1:
+        return 'st'
+      case 2:
+        return 'nd'
+      case 3:
+        return 'rd'
+      default:
+        return 'th'
+    }
+  }
+
   const strippedDate = selectedDate ? formatDate(selectedDate) : 'Select Date'
 
+
+
   return (
-    <div className='flex flex-col text-white lg:mb-4 lg:w-full lg:p-4 p-4'>
+    <div className='flex flex-col text-white md:w-full lg:mb-4 lg:w-full lg:p-4 py-4 relative'>
       <div className='flex w-full items-center justify-center my-12 py-4 rounded-md shadow-[#7A8EFF] shadow-md bg-black'>
         <div className='flex justify-evenly w-[90%] md:w-[60%]'>
           <DropdownMenu>
@@ -72,9 +92,6 @@ function DetailCard() {
                 value={selectedCategory}
                 onValueChange={dropDownSelect}
               >
-                  <DropdownMenuRadioItem value='all'>
-                  All
-                </DropdownMenuRadioItem>
                 <DropdownMenuRadioItem value='tech'>Tech</DropdownMenuRadioItem>
                 <DropdownMenuRadioItem value='travel'>
                   Travel
@@ -86,7 +103,6 @@ function DetailCard() {
                 <DropdownMenuRadioItem value='beauty'>
                   Beauty Product
                 </DropdownMenuRadioItem>
-              
               </DropdownMenuRadioGroup>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -107,16 +123,27 @@ function DetailCard() {
       </div>
 
       {toggleCalendar && (
-        <Calendar
-          mode='single'
-          selected={date}
-          onSelect={dateSelect}
-          className='rounded-md justify-center item-center w-fit mx-auto bg-[#5A53A7] mt-4'
-        />
+        <div className='bg-black/80 z-50 h-screen w-screen fixed left-0 right-0 top-0 bottom-0 flex justify-center items-center'>
+          <div className='flex justify-center items-center flex-col w-fit mx-auto mt-4 top-28 z-30 lg:-top-32 lg:left-48 relative'>
+            <div
+              className='self-end ml-auto mb-4'
+              onClick={() => {
+                setToggleCalendar(false)
+              }}
+            >
+              <IoClose size={40} className='justify-self-end align-self-end' />
+            </div>
+            <Calendar
+              mode='single'
+              selected={date}
+              onSelect={dateSelect}
+              className='rounded-md bg-[#5A53A7]'
+            />
+          </div>
+        </div>
       )}
     </div>
   )
 }
 
 export default DetailCard
-

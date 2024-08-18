@@ -2,6 +2,8 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/ui/theme-provider'
 import { GlobalStateProvider } from './context/filterContext'
+import { Suspense } from 'react'
+import Loading from './loading'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +18,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.className} relative dark:bg-black flex justify-between`}
       >
-        <GlobalStateProvider>{children}</GlobalStateProvider>
+        <GlobalStateProvider>
+          <Suspense fallback={<Loading />}>{children}</Suspense>
+        </GlobalStateProvider>
       </body>
     </html>
   )

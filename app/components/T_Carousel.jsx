@@ -30,6 +30,8 @@ export function TrendSpotCarouselUpdate({ information }) {
     })
   }, [api])
 
+  
+
   return (
     <>
       <div className=' lg:hidden place-self-center '>
@@ -39,25 +41,29 @@ export function TrendSpotCarouselUpdate({ information }) {
           opts={{ loop: false }}
         >
           <CarouselContent className='h-[400px]'>
-            {information?.map(({ randomDate, update }) => (
+            {information?.map((update, idx) => (
               <CarouselItem
-                key={update}
+                key={idx}
                 className=' hover:scale-105 transition-all delay-100 '
               >
                 <Card className='h-full'>
                   <CardContent className='flex  items-center justify-center p-6 h-[400px]'>
-                    <UpdateCard date={randomDate} message={update} />
+                    <UpdateCard
+                      date={update?.posted_date}
+                      message={update?.body}
+                      img_url={update?.img_url}
+                      link_text={update?.link_text}
+                      link_href={update?.link_href}
+                      id={update?.id}
+                    />
                   </CardContent>
                 </Card>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className='bg-black hover:bg-black'/>
+          <CarouselPrevious className='bg-black hover:bg-black' />
           <CarouselNext className='bg-black hover:bg-black' />
         </Carousel>
-        <div className='py-2 text-center text-sm text-muted-foreground text-white hidden'>
-          Update {current}.
-        </div>
       </div>
       <Carousel
         opts={{
@@ -65,24 +71,31 @@ export function TrendSpotCarouselUpdate({ information }) {
           loop: false,
         }}
         orientation='vertical'
-        className='w-full max-w-xs hidden lg:flex '
+        className='w-full max-w-xs hidden lg:flex  justify-center items-center'
       >
-        <CarouselContent className='-mt-0 h-[300px] '>
-          {information?.map(({ randomDate, update }) => (
+        <CarouselContent className='-mt-0 h-[300px]  my-2 '>
+          {information?.map((update, idx) => (
             <CarouselItem
-              key={update}
-              className='hover:scale-105 transition-all delay-100'
+              key={idx}
+              className='hover:scale-105 transition-all delay-100 mt-2  hover:rounded-md '
             >
               <Card className=''>
-                <CardContent className='flex  rounded items-center justify-center  gap-3  '>
-                  <UpdateCard date={randomDate} message={update} />
+                <CardContent className='flex   items-center justify-center gap-3 rounded-md text-white  '>
+                <UpdateCard
+                      date={update?.posted_date}
+                      message={update?.body}
+                      img_url={update?.img_url}
+                      link_text={update?.link_text}
+                      link_href={update?.link_href}
+                      id={update?.id}
+                    />
                 </CardContent>
               </Card>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious  className='bg-black hover:bg-black'/>
-        <CarouselNext  className='bg-black hover:bg-black'/>
+        <CarouselPrevious className='bg-black/20 hover:bg-black/20 border-none' />
+        <CarouselNext className='bg-black/20 hover:bg-black/20 border-none' />
       </Carousel>
     </>
   )

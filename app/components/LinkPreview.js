@@ -104,7 +104,7 @@ const LinkPreview = ({ url }) => {
         )}
 
         <div className='absolute inset-x-0 bottom-0 bg-[#848AF9] p-4'>
-          <h1 className='font-bold text-white overflow-hidden text-ellipsis whitespace-normal break-words max-h-12 text-sm overflow-y-scroll '>
+          <h1 className='font-bold text-white overflow-hidden text-ellipsis whitespace-normal break-words max-h-12 h-10 text-sm  '>
             {previewData.title}
           </h1>
         </div>

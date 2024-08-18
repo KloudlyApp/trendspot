@@ -1,43 +1,38 @@
-import React from "react";
-import UpdateCard from "./UpdateCard";
-import { TrendSpotCarousel, TrendSpotCarouselUpdate } from "./T_Carousel";
+'use client'
+
+import React, { useEffect, useState } from "react";
+import { TrendSpotCarouselUpdate } from "./T_Carousel";
 
 function Updates() {
-  const updatesArray = [
-    {
-      randomDate: "Aug, 3rd",
-      update:
-        "Built handy sites with Craft/WordPress. @framer tackling CMS is mind-boggling.",
-    },
-    {
-      randomDate: "Jul, 15th",
-      update:
-        "Exploring new features in the latest software update. Very impressed so far.",
-    },
-    {
-      randomDate: "Jul, 30th",
-      update:
-        "Discovered some cool plugins for enhancing site performance and security.",
-    },
-    {
-      randomDate: "Aug, 10th",
-      update:
-        "Tested a new workflow for content creation. Results are promising.",
-    },
-    {
-      randomDate: "Aug, 25th",
-      update:
-        "Collaborating with a team on a new project. The progress is fantastic.",
-    },
-  ];
+  const [updates, setUpdates] = useState([]);
 
- 
+  useEffect(() => {
+    const fetchUpdates = async () => {
+      try {
+        const response = await fetch('/api/sample-updates');
+        const data = await response.json();
+        setUpdates(data);
+      } catch (error) {
+        console.error("Error fetching updates:", error);
+      }
+    };
+
+    fetchUpdates();
+  }, []);
+
+
+  console.log(updates);
+  
 
   return (
-    <div className="h-full flex  ">
-      <TrendSpotCarouselUpdate information={updatesArray} />
+    <div className="h-full flex justify-center items-center">
+      {updates.length > 0 ? (
+        <TrendSpotCarouselUpdate information={updates} />
+      ) : (
+        <p>Loading updates...</p>
+      )}
     </div>
-  )
+  );
 }
 
-export default Updates
+export default Updates;
