@@ -44,7 +44,7 @@ function UpdateCard({ date, message, link_href, link_text, img_url }) {
         <div className='flex gap-7'>
           <div className='rounded-full w-[50px] h-[50px] max-h-14 flex items-center justify-center overflow-hidden '>
             {img_url && (
-              <Image src={img_url} height={100} width={100} alt='image' className='' />
+              <Image src={img_url} height={100} width={100} alt='image' className='rounded-full' />
             )}
           </div>
           <div className=''>

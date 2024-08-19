@@ -22,6 +22,8 @@ function DetailCard() {
     setSelectedCategory,
     selectedDate,
     setSelectedDate,
+    filterByTag,
+    setfilterByTag,
   } = useGlobalContext()
 
   const dropDownSelect = (value) => {
@@ -73,8 +75,6 @@ function DetailCard() {
 
   const strippedDate = selectedDate ? formatDate(selectedDate) : 'Select Date'
 
-
-
   return (
     <div className='flex flex-col text-white md:w-full lg:mb-4 lg:w-full lg:p-4 py-4 relative'>
       <div className='flex w-full items-center justify-center my-12 py-4 rounded-md shadow-[#7A8EFF] shadow-md bg-black'>
@@ -116,8 +116,8 @@ function DetailCard() {
               {strippedDate}
             </p>
           </div>
-          <p className='hover:scale-105 transition-all delay-100 cursor-pointer'>
-            Filter
+          <p className='hover:scale-105 transition-all delay-100 cursor-pointer' onClick={()=>{setfilterByTag(!filterByTag)}}>
+            {filterByTag ? 'Tagged': 'All'}
           </p>
         </div>
       </div>

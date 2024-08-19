@@ -3,15 +3,17 @@
 import React, { useEffect, useState } from 'react'
 import LinkPreview from './LinkPreview'
 import { useGlobalContext } from '../context/filterContext'
-import { Skeleton } from '@/components/ui/skeleton' // Import your Skeleton component
+import { Skeleton } from '@/components/ui/skeleton'
 
 function LinkPreviewContainer({ videoType }) {
-  const [sampleData, setSampleData] = useState(null) // Start with null to indicate loading
+  const [sampleData, setSampleData] = useState(null)
   const {
     selectedCategory,
     selectedDate,
     filterByDateArray,
     setfilterByDateArray,
+    filterByTag,
+    setfilterByTag,
   } = useGlobalContext()
 
   useEffect(() => {
@@ -19,7 +21,7 @@ function LinkPreviewContainer({ videoType }) {
       .then((response) => response.json())
       .then((data) => {
         const sortedData = data.sort(
-          (a, b) => new Date(a.trendingDate) - new Date(b.trendingDate)
+          (a, b) => new Date(a.trendingDate) - new Date(b.trendingDate),
         )
         setSampleData(sortedData.slice(0, 100))
       })
@@ -27,7 +29,7 @@ function LinkPreviewContainer({ videoType }) {
   }, [])
 
   useEffect(() => {
-    if (selectedDate && sampleData) { // Only run if sampleData is available
+    if (selectedDate && sampleData) {
       const filterByDate = sampleData.filter((item) => {
         const itemDate = new Date(item.trendingDate).toLocaleDateString()
         const selected = new Date(selectedDate).toLocaleDateString()
@@ -39,18 +41,21 @@ function LinkPreviewContainer({ videoType }) {
   }, [selectedDate, sampleData, setfilterByDateArray])
 
   if (!sampleData) {
-    // If sampleData is null, render the Skeleton component
-    return <div className='flex gap-3'>
-
-
-      { Array.from({ length: 5 }, (_, index) => (
-      <Skeleton key={index}  className='h-[260px] w-[300px] rounded-xl' />
-    ))}
-    </div>
+    return (
+      <div className='flex gap-3 my-4 mx-4'>
+        {Array.from({ length: 5 }, (_, index) => (
+          <Skeleton key={index} className='h-[260px] w-[300px] rounded-xl' />
+        ))}
+      </div>
+    )
   }
+  const filteredItemsByTag = filterByTag
+  ? filterByDateArray.filter((item) => item.tag)
+  : filterByDateArray
 
-  const filteredItemsByLiveStream = filterByDateArray?.filter(
-    (item) => item.niche === selectedCategory && item.type === videoType
+
+  const filteredItemsByLiveStream = filteredItemsByTag?.filter(
+    (item) => item.niche === selectedCategory && item.type === videoType,
   )
 
   return (
@@ -98,4 +103,3 @@ function LinkPreviewContainer({ videoType }) {
 }
 
 export default LinkPreviewContainer
-

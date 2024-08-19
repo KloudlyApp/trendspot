@@ -5,8 +5,9 @@ const GlobalStateContext = createContext()
 
 export const GlobalStateProvider = ({ children }) => {
   const [selectedCategory, setSelectedCategory] = useState('tech')
+  const [filterByDateArray, setfilterByDateArray] = useState([])
   const [selectedDate, setSelectedDate] = useState(new Date())
-  const [    filterByDateArray, setfilterByDateArray] = useState([])
+  const [filterByTag, setfilterByTag] = useState(undefined)
 
   return (
     <GlobalStateContext.Provider
@@ -16,7 +17,9 @@ export const GlobalStateProvider = ({ children }) => {
         selectedDate,
         setSelectedDate,
         filterByDateArray,
-        setfilterByDateArray
+        setfilterByDateArray,
+        filterByTag,
+        setfilterByTag,
       }}
     >
       {children}
