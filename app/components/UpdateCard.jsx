@@ -5,8 +5,8 @@ import React from 'react'
 function UpdateCard({ date, message, link_href, link_text, img_url }) {
   const formatDate = (dateString) => {
     const date = new Date(dateString)
-
-    const options = { month: 'short', day: 'numeric', year: 'numeric' }
+// If you want year, add  year: 'numeric'  in the object.
+    const options = { month: 'short', day: 'numeric',}
     const formattedDate = date.toLocaleDateString('en-US', options)
 
     const day = date.getUTCDate()
@@ -39,26 +39,28 @@ function UpdateCard({ date, message, link_href, link_text, img_url }) {
   const truncatedText = truncateText(message, 30)
 
   return (
-    <div className='bg-[#262626]  md:my-0 p-6 min-w-[300px] h-[300px] w-[300px] rounded-lg  my-4 justify-center text-white   '>
-      <div className='flex  flex-col gap-7 '>
-        <div className='flex gap-7'>
-          <div className='rounded-full w-[50px] h-[50px] max-h-14 flex items-center justify-center overflow-hidden '>
-            {img_url && (
-              <Image src={img_url} height={100} width={100} alt='image' className='rounded-full' />
-            )}
-          </div>
-          <div className=''>
-            <h2 className='font-bold  message-white'>{ link_text}</h2>
-            <p className=' message-white'>{strippedDate}</p>
-          </div>
+    <div className={`bg-[#262626]  md:my-0 min-w-[300px] h-[300px] w-[300px] rounded-lg  my-4 justify-center text-white flex `}>
+      <div className={`flex  flex-col gap-4  ${!img_url && 'justify-around my-0 gap-0'}`}>
+        <div className='flex '>
+        {img_url &&  <div className=' h-[90px] max-h-28 flex items-center justify-center overflow-hidden lg:flex-1 w-full rounded-t-lg hover:rouded-t-lg'>
+           
+              <Image src={img_url} height={100} width={100} alt='image' className='w-full ' />
+            
+          </div>}
+       
         </div>
 
-        <p className=' text-white'>
-          {truncatedText} ...
-          <Link href={`${link_href}`} className='text-blue-500 hover:underline'>
-            <>Read More</>
-          </Link>
+        <p className={`w-full text-white  lg:max-h-[6rem] overflow-y-scroll  px-2 ml-4 text-balance ${!img_url && 'lg:max-h-[11rem]'  } `}>
+          {truncatedText}
+        
         </p>
+
+        <div className="flex justify-between  p-6">
+        <p className=' message-white'>{strippedDate}</p>
+        <Link href={`${link_href}`} className='text-[#7A8EFF] hover:underline'>
+            <>Read Article</>
+          </Link>
+       </div>
       </div>
     </div>
   )

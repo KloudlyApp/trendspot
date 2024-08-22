@@ -5,7 +5,7 @@ import ProductContainer from './ProductContainer'
 
 function SectionContainer() {
   return (
-    <div className='flex flex-col lg:max-w-full lg:flex-row gap-2 md:h-screen '>
+    <div className='flex flex-col lg:max-w-full lg:flex-row gap-2 md:h-screen lg:justify-center lg:items-center md:overflow-scroll  md:px-4 '>
       <Profile_Updates_Card />
       <ProductContainer />
     </div>

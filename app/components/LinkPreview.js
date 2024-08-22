@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react'
 const cache = {}
 const CACHE_DURATION = 60 * 60 * 1000
 
-const LinkPreview = ({ url }) => {
+const LinkPreview = ({ url, tag }) => {
   const [previewData, setPreviewData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -71,10 +71,16 @@ const LinkPreview = ({ url }) => {
   if (loading)
     return (
       <div>
-        <Skeleton className='h-[260px] w-[300px] rounded-xl' />
+        <Skeleton className='h-[18.5rem] w-[12.5rem] rounded-xl' />
       </div>
     )
-  if (error) return <div>Error: {error}</div>
+  if (error)
+    return (
+      <div className='h-[260px] w-[300px] text-center flex items-center justify-center my-auto text-red-400'>
+        Error: {error}
+      </div>
+    )
+
   if (!previewData) {
     return null
   } else {
@@ -82,8 +88,6 @@ const LinkPreview = ({ url }) => {
 
 
 
-  console.log('Preview',previewData);
-  
   return (
     <>
       <Link
@@ -91,25 +95,26 @@ const LinkPreview = ({ url }) => {
         href={url}
         target='_blank'
         rel='noopener noreferrer'
-        className='flex gap-72 rounded-lg shadow-md overflow-hidden relative hover:shadow-lg transition-shadow duration-300 w-full '
+        className='flex gap-72 rounded-2xl shadow-md overflow-hidden relative hover:shadow-lg  duration-150 w-full hover:scale-105  transition-all delay-150 '
       >
+       {tag && url ?  <div className='h-10 w-fit flex justify-center items-center bg-[#7A8EFF] text-nowrap px-4 text-white text-center rounded-ts-2xl rounded-ee-2xl absolute'>{tag  }</div>: null}
         {previewData.images && previewData.images.length > 0 && (
           <div className='w-full  flex'>
+         
             <img
               src={previewData.images[0]}
               alt={previewData.title}
-              className='object-fill w-full h-[260px] aspect-square'
+              className='object-cover  h-[18.5rem] w-[12.5rem]'
             />
           </div>
         )}
 
-        <div className='absolute inset-x-0 bottom-0 bg-[#848AF9] p-4'>
+        <div className='absolute inset-x-0 bottom-0 bg-title-blue p-4'>
           <h1 className='font-bold text-white overflow-hidden text-ellipsis whitespace-normal break-words max-h-12 h-10 text-sm  '>
             {previewData.title}
           </h1>
         </div>
       </Link>
-    
     </>
   )
 }

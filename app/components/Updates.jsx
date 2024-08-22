@@ -21,7 +21,7 @@ function Updates() {
   }, []);
 
 
-  console.log(updates);
+
   
 
   return (
@@ -29,7 +29,7 @@ function Updates() {
       {updates.length > 0 ? (
         <TrendSpotCarouselUpdate information={updates} />
       ) : (
-        <p>Loading updates...</p>
+        <p className="text-white">Loading updates...</p>
       )}
     </div>
   );

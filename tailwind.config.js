@@ -17,6 +17,9 @@ module.exports = {
       },
     },
     extend: {
+      colors: {
+        'title-blue': 'rgba(122, 142, 255, 0.51)',
+      },
      
       keyframes: {
         'accordion-down': {

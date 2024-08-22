@@ -6,7 +6,7 @@ import Top_Trending_Product from './_top_viral_video/Top_Trending_Product'
 
 function ProductContainer() {
   return (
-    <div className='mt-6 lg:mt-0 lg:w-screen lg:h-screen lg:overflow-y-scroll  md:gap-10 md:flex md:flex-col '>
+    <div className='mt-6 lg:w-screen lg:h-screen lg:overflow-y-scroll   md:gap-10 lg:gap-2 md:h-[50%] md:flex md:flex-col lg:mt-6 px-4 gap-6 flex flex-col'>
       <DetailCard />
       <Top_Video_Product />
       <Top_LiveStream />

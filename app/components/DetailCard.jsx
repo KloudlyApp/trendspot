@@ -76,8 +76,8 @@ function DetailCard() {
   const strippedDate = selectedDate ? formatDate(selectedDate) : 'Select Date'
 
   return (
-    <div className='flex flex-col text-white md:w-full lg:mb-4 lg:w-full lg:p-4 py-4 relative'>
-      <div className='flex w-full items-center justify-center my-12 py-4 rounded-md shadow-[#7A8EFF] shadow-md bg-black'>
+    <div className='flex flex-col text-white md:w-full lg:mb-4 lg:w-full px-2 md:px-1 lg:p-2 mb-2  relative'>
+      <div className='flex w-full items-center justify-center  py-4 rounded-md shadow-[#857fff] shadow-md bg-black'>
         <div className='flex justify-evenly w-[90%] md:w-[60%]'>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
