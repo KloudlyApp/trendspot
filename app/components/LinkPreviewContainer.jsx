@@ -8,12 +8,12 @@ import { Skeleton } from '@/components/ui/skeleton'
 function LinkPreviewContainer({ videoType }) {
   const [sampleData, setSampleData] = useState(null)
   const {
-    selectedCategory,
+    selectedNiche,
     selectedDate,
     filterByDateArray,
-    setfilterByDateArray,
+    setFilterByDateArray,
     filterByTag,
-    setfilterByTag,
+    setFilterByTag,
   } = useGlobalContext()
 
   useEffect(() => {
@@ -36,25 +36,29 @@ function LinkPreviewContainer({ videoType }) {
 
         return itemDate === selected
       })
-      setfilterByDateArray(filterByDate)
+      setFilterByDateArray(filterByDate)
     }
-  }, [selectedDate, sampleData, setfilterByDateArray])
+  }, [selectedDate, sampleData, setFilterByDateArray])
 
   if (!sampleData) {
     return (
       <div className='flex gap-3 my-4 mx-4'>
         {Array.from({ length: 5 }, (_, index) => (
-          <Skeleton key={index} className='h-[18.5rem] w-[12.5rem] rounded-xl' />
+          <Skeleton
+            key={index}
+            className='h-[18.5rem] w-[12.5rem] rounded-xl'
+          />
         ))}
       </div>
     )
   }
-  const filteredItemsByTag = filterByTag
-    ? filterByDateArray.filter((item) => item.tag)
+  const filteredItemsByTag =
+    filterByTag ?
+      filterByDateArray.filter((item) => item.tag)
     : filterByDateArray
 
   const filteredItemsByLiveStream = filteredItemsByTag?.filter(
-    (item) => item.niche === selectedCategory && item.type === videoType,
+    (item) => item.niche === selectedNiche && item.type === videoType,
   )
 
   return (
@@ -62,44 +66,42 @@ function LinkPreviewContainer({ videoType }) {
       <div className='w-full flex my-4 lg:hidden'>
         <div
           className={`flex flex-row  w-full gap-4 ${filteredItemsByLiveStream.length < 1 ? '!overflow-x-hidden' : 'overflow-x-scroll'}`}
-        
-          
         >
-          {filteredItemsByLiveStream.length < 1 ? (
+          {filteredItemsByLiveStream.length < 1 ?
             <p className='h-[260px] ml-4 text-center flex items-center justify-center my-auto text-white'>
               There is no video in this category during this date or the data is
               fetching currently.
             </p>
-          ) : (
-            filteredItemsByLiveStream.map((item, index) => (
+          : filteredItemsByLiveStream.map((item, index) => (
               <div key={index} className='flex-none'>
-       
                 <LinkPreview url={`https://www.tiktok.com/t/${item.slug}`} />
               </div>
             ))
-          )}
+          }
         </div>
       </div>
 
       <div
         className={`lg:flex   hidden gap-5 ${
-          filteredItemsByLiveStream.length < 1 ? 'grid-cols-1 !overflow-x-hidden': 'overflow-x-scroll'
-          }`}
-        
+          filteredItemsByLiveStream.length < 1 ?
+            'grid-cols-1 !overflow-x-hidden'
+          : 'overflow-x-scroll'
+        }`}
       >
-        {filteredItemsByLiveStream.length < 1 ? (
+        {filteredItemsByLiveStream.length < 1 ?
           <p className='text-white text-nowrap h-[260px] text-center  flex items-center justify-center  my-auto align-middle '>
             There is no video in this category in this time frame or the data is
             fetching currently.
           </p>
-        ) : (
-          filteredItemsByLiveStream.map((item, index) => (
+        : filteredItemsByLiveStream.map((item, index) => (
             <div key={index} className='flex-none py-2'>
-             
-              <LinkPreview url={`https://www.tiktok.com/t/${item.slug}`} tag={item.tag} />
+              <LinkPreview
+                url={`https://www.tiktok.com/t/${item.slug}`}
+                tag={item.tag}
+              />
             </div>
           ))
-        )}
+        }
       </div>
     </>
   )

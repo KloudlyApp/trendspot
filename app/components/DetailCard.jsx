@@ -1,33 +1,34 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Calendar } from '@/components/ui/calendar'
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useGlobalContext } from '../context/filterContext'
 import { IoClose } from 'react-icons/io5'
+import userPatchLatestNiche from '../api/sanity/user/update-latest-niche/patch-latest-niche'
 
-function DetailCard() {
+function DetailCard({ niches, userData }) {
   const [date, setDate] = useState(new Date())
   const [toggleCalendar, setToggleCalendar] = useState(false)
   const {
-    selectedCategory,
-    setSelectedCategory,
+    selectedNiche,
+    setSelectedNiche,
     selectedDate,
     setSelectedDate,
     filterByTag,
-    setfilterByTag,
+    setFilterByTag,
   } = useGlobalContext()
 
-  const dropDownSelect = (value) => {
-    setSelectedCategory(value)
+  const handleNicheChange = (id) => {
+    const selectedNiche = niches.find((niche) => niche.id === id)
+    userPatchLatestNiche(userData.sanityID, selectedNiche.id)
+    setSelectedNiche(selectedNiche)
   }
 
   const dateSelect = (selectedDate) => {
@@ -81,28 +82,22 @@ function DetailCard() {
         <div className='flex justify-evenly w-[90%] md:w-[60%]'>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <div className='hover:scale-105 transition-all delay-100 cursor-pointer'>
-                Category
+              <div className='hover:scale-105 transition-all delay-100 cursor-pointer capitalize'>
+                {selectedNiche.name}
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-56'>
-              <DropdownMenuLabel>Filter based on category.</DropdownMenuLabel>
-              <DropdownMenuSeparator />
               <DropdownMenuRadioGroup
-                value={selectedCategory}
-                onValueChange={dropDownSelect}
+                value={selectedNiche.id}
+                onValueChange={handleNicheChange}
               >
-                <DropdownMenuRadioItem value='tech'>Tech</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value='travel'>
-                  Travel
-                </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value='health'>
-                  Health
-                </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value='food'>Food</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value='beauty'>
-                  Beauty Product
-                </DropdownMenuRadioItem>
+                {niches.map((niche) => {
+                  return (
+                    <DropdownMenuRadioItem value={niche.id} key={niche.id}>
+                      {niche.name}
+                    </DropdownMenuRadioItem>
+                  )
+                })}
               </DropdownMenuRadioGroup>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -116,8 +111,13 @@ function DetailCard() {
               {strippedDate}
             </p>
           </div>
-          <p className='hover:scale-105 transition-all delay-100 cursor-pointer' onClick={()=>{setfilterByTag(!filterByTag)}}>
-            {filterByTag ? 'Tagged': 'All'}
+          <p
+            className='hover:scale-105 transition-all delay-100 cursor-pointer'
+            onClick={() => {
+              setFilterByTag(!filterByTag)
+            }}
+          >
+            {filterByTag ? 'Tagged' : 'All'}
           </p>
         </div>
       </div>

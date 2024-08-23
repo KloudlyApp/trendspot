@@ -3,23 +3,23 @@ import { createContext, useContext, useState } from 'react'
 
 const GlobalStateContext = createContext()
 
-export const GlobalStateProvider = ({ children }) => {
-  const [selectedCategory, setSelectedCategory] = useState('tech')
-  const [filterByDateArray, setfilterByDateArray] = useState([])
+export const GlobalStateProvider = ({ children, initialSelectedNiche }) => {
+  const [selectedNiche, setSelectedNiche] = useState(initialSelectedNiche)
+  const [filterByDateArray, setFilterByDateArray] = useState([])
   const [selectedDate, setSelectedDate] = useState(new Date())
-  const [filterByTag, setfilterByTag] = useState(undefined)
+  const [filterByTag, setFilterByTag] = useState(undefined)
 
   return (
     <GlobalStateContext.Provider
       value={{
-        selectedCategory,
-        setSelectedCategory,
+        selectedNiche,
+        setSelectedNiche,
         selectedDate,
         setSelectedDate,
         filterByDateArray,
-        setfilterByDateArray,
+        setFilterByDateArray,
         filterByTag,
-        setfilterByTag,
+        setFilterByTag,
       }}
     >
       {children}
