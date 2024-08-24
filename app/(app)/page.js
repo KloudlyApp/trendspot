@@ -5,8 +5,7 @@ import Top_Trending_Product from '../components/_top_viral_video/Top_Trending_Pr
 import getSanityUser from '../api/sanity/user/getSanityUser'
 import getAuthorizedUserFromToken from '../api/whop/authorize-user'
 import { cookies } from 'next/headers'
-import { sanityFetch } from '../api/sanity/client'
-import getActiveNiches from '../api/sanity/niches/get-active-niches'
+import getActiveNiches from '../api/airtable/niches/get-active-niches'
 
 export default async function Home() {
   // Retrieve Whop access token from cookies and fetch Whop user data from Whop

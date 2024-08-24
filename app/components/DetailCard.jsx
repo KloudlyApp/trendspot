@@ -83,7 +83,7 @@ function DetailCard({ niches, userData }) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <div className='hover:scale-105 transition-all delay-100 cursor-pointer capitalize'>
-                {selectedNiche.name}
+                {selectedNiche.fields.Name}
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-56'>
@@ -94,7 +94,7 @@ function DetailCard({ niches, userData }) {
                 {niches.map((niche) => {
                   return (
                     <DropdownMenuRadioItem value={niche.id} key={niche.id}>
-                      {niche.name}
+                      {niche.fields.Name}
                     </DropdownMenuRadioItem>
                   )
                 })}
