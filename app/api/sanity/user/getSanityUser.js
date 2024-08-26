@@ -17,8 +17,8 @@ export default async function getSanityUser(whopUserData) {
     if (sanityUserData[0]) {
       userData.sanityID = sanityUserData[0]?.id
       userData.latestNiche = {
-        name: sanityUserData[0]?.latestNicheName,
         id: sanityUserData[0]?.latestNicheID,
+        fields: { Name: sanityUserData[0]?.latestNicheName },
       }
     } else {
       console.log('testing only: no sanity user data found')
@@ -31,8 +31,8 @@ export default async function getSanityUser(whopUserData) {
           'https://ui-avatars.com/api/?name=test&background=535961&color=fff',
         sanityID: '737d6fd4-09f2-492c-bccd-5b4681cdbcf0',
         latestNiche: {
-          name: 'Beauty',
           id: 'ade20a10-78d3-49cb-af13-f28d2d874a6e',
+          fields: { Name: 'Beauty' },
         },
       }
     }

@@ -15,8 +15,6 @@ const airtableFetch = async (url, options = {}) => {
 
   const response = await fetch(`${BASE_URL}${url}`, fetchOptions)
 
-  console.log(response)
-
   return response.json()
 }
 
