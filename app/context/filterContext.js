@@ -1,30 +1,27 @@
 'use client'
 import { createContext, useContext, useState } from 'react'
 
-const GlobalStateContext = createContext()
+const FilterStateContext = createContext()
 
-export const GlobalStateProvider = ({ children, initialSelectedNiche }) => {
-  const [selectedNiche, setSelectedNiche] = useState(initialSelectedNiche)
-  const [filterByDateArray, setFilterByDateArray] = useState([])
-  const [selectedDate, setSelectedDate] = useState(new Date())
-  const [filterByTag, setFilterByTag] = useState(undefined)
+export const FilterStateProvider = ({ children, initialNiche }) => {
+  const [filterNiche, setFilterNiche] = useState(initialNiche)
+  const [filterDate, setFilterDate] = useState(new Date())
+  const [filterByTag, setFilterByTag] = useState(false)
 
   return (
-    <GlobalStateContext.Provider
+    <FilterStateContext.Provider
       value={{
-        selectedNiche,
-        setSelectedNiche,
-        selectedDate,
-        setSelectedDate,
-        filterByDateArray,
-        setFilterByDateArray,
+        filterNiche,
+        setFilterNiche,
+        filterDate,
+        setFilterDate,
         filterByTag,
         setFilterByTag,
       }}
     >
       {children}
-    </GlobalStateContext.Provider>
+    </FilterStateContext.Provider>
   )
 }
 
-export const useGlobalContext = () => useContext(GlobalStateContext)
+export const useFilterContext = () => useContext(FilterStateContext)

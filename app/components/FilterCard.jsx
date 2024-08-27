@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { Calendar } from '@/components/ui/calendar'
 import {
   DropdownMenu,
@@ -9,42 +9,42 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useGlobalContext } from '../context/filterContext'
+import { useFilterContext } from '../context/filterContext'
 import { IoClose } from 'react-icons/io5'
 import userPatchLatestNiche from '../api/sanity/user/update-latest-niche/patch-latest-niche'
 
-function DetailCard({ niches, userData }) {
+function FilterCard({ niches, userData }) {
   const [date, setDate] = useState(new Date())
   const [toggleCalendar, setToggleCalendar] = useState(false)
   const {
-    selectedNiche,
-    setSelectedNiche,
-    selectedDate,
-    setSelectedDate,
+    filterNiche,
+    setFilterNiche,
+    filterDate,
+    setFilterDate,
     filterByTag,
     setFilterByTag,
-  } = useGlobalContext()
+  } = useFilterContext()
 
   const handleNicheChange = (id) => {
-    const selectedNiche = niches.find((niche) => niche.id === id)
-    userPatchLatestNiche(userData.sanityID, selectedNiche.id)
-    setSelectedNiche(selectedNiche)
+    const filterNiche = niches.find((niche) => niche.id === id)
+    userPatchLatestNiche(userData.sanityID, filterNiche.id)
+    setFilterNiche(filterNiche)
   }
 
-  const dateSelect = (selectedDate) => {
+  const dateSelect = (filterDate) => {
     const currentTime = new Date()
 
     const combinedDate = new Date(
-      selectedDate.getFullYear(),
-      selectedDate.getMonth(),
-      selectedDate.getDate(),
+      filterDate.getFullYear(),
+      filterDate.getMonth(),
+      filterDate.getDate(),
       currentTime.getHours(),
       currentTime.getMinutes(),
       currentTime.getSeconds(),
     )
 
-    setDate(selectedDate)
-    setSelectedDate(combinedDate.toISOString())
+    setDate(filterDate)
+    setFilterDate(combinedDate.toISOString())
     setToggleCalendar(!toggleCalendar)
   }
 
@@ -74,7 +74,7 @@ function DetailCard({ niches, userData }) {
     }
   }
 
-  const strippedDate = selectedDate ? formatDate(selectedDate) : 'Select Date'
+  const strippedDate = filterDate ? formatDate(filterDate) : 'Select Date'
 
   return (
     <div className='flex flex-col text-white md:w-full lg:mb-4 lg:w-full px-2 md:px-1 lg:p-2 mb-2  relative'>
@@ -83,12 +83,12 @@ function DetailCard({ niches, userData }) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <div className='hover:scale-105 transition-all delay-100 cursor-pointer capitalize'>
-                {selectedNiche.fields.Name}
+                {filterNiche.fields.Name}
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-56'>
               <DropdownMenuRadioGroup
-                value={selectedNiche.id}
+                value={filterNiche.id}
                 onValueChange={handleNicheChange}
               >
                 {niches.map((niche) => {
@@ -146,4 +146,4 @@ function DetailCard({ niches, userData }) {
   )
 }
 
-export default DetailCard
+export default FilterCard

@@ -1,14 +1,19 @@
+'use client'
+
 import { Skeleton } from '@/components/ui/skeleton'
 import Link from 'next/link'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 const cache = {}
 const CACHE_DURATION = 60 * 60 * 1000
 
-const LinkPreview = ({ url, tag }) => {
+const TikTokCard = ({ post }) => {
   const [previewData, setPreviewData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  const url = post.fields['Full Link']
+  const tag = post.fields.Tag
 
   useEffect(() => {
     const fetchPreviewData = async () => {
@@ -86,8 +91,6 @@ const LinkPreview = ({ url, tag }) => {
   } else {
   }
 
-
-
   return (
     <>
       <Link
@@ -97,10 +100,13 @@ const LinkPreview = ({ url, tag }) => {
         rel='noopener noreferrer'
         className='flex gap-72 rounded-2xl shadow-md overflow-hidden relative hover:shadow-lg  duration-150 w-full hover:scale-105  transition-all delay-150 '
       >
-       {tag && url ?  <div className='h-10 w-fit flex justify-center items-center bg-[#7A8EFF] text-nowrap px-4 text-white text-center rounded-ts-2xl rounded-ee-2xl absolute'>{tag  }</div>: null}
+        {tag && url ?
+          <div className='h-10 w-fit flex justify-center items-center bg-[#7A8EFF] text-nowrap px-4 text-white text-center rounded-ts-2xl rounded-ee-2xl absolute'>
+            {tag}
+          </div>
+        : null}
         {previewData.images && previewData.images.length > 0 && (
           <div className='w-full  flex'>
-         
             <img
               src={previewData.images[0]}
               alt={previewData.title}
@@ -119,4 +125,4 @@ const LinkPreview = ({ url, tag }) => {
   )
 }
 
-export default LinkPreview
+export default TikTokCard
