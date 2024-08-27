@@ -125,7 +125,7 @@ function FilterCard({ niches, userData }) {
               setFilterByTag(!filterByTag)
             }}
           >
-            {filterByTag ? 'Tagged' : 'All'}
+            {filterByTag ? 'All' : 'Tagged Only'}
           </p>
         </div>
       </div>

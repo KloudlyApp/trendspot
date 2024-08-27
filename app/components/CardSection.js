@@ -30,18 +30,23 @@ const CardSection = () => {
     posts = posts?.filter((item) => item.fields.Tag)
   }
 
+  const trendingVideos = posts?.filter(
+    (item) => item.fields.Type === 'Trending video',
+  )
   const videoProducts = posts?.filter(
     (item) => item.fields.Type === 'Video product',
   )
   const livestreamProducts = posts?.filter(
     (item) => item.fields.Type === 'Livestream product',
   )
-  const trendingVideos = posts?.filter(
-    (item) => item.fields.Type === 'Trending video',
-  )
 
   return (
     <>
+      <CardGroup
+        title={'top trending videos'}
+        cards={<TikTokCard />}
+        data={trendingVideos}
+      />
       <CardGroup
         title={'top video products'}
         cards={<TikTokCard />}
@@ -51,11 +56,6 @@ const CardSection = () => {
         title={'top livestream products'}
         cards={<TikTokCard />}
         data={livestreamProducts}
-      />
-      <CardGroup
-        title={'top trending videos'}
-        cards={<TikTokCard />}
-        data={trendingVideos}
       />
     </>
   )

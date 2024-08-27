@@ -8,11 +8,16 @@ export default function DashboardReloader() {
   // This section is a hacky fix because I didn't know how to store cookies properly to share the accessToken from /api/whop/route.js to /dashboard/page.js\
   //
   useEffect(() => {
-    if (localStorage.alreadyFailed === 'true') {
+    if (localStorage.alreadyFailed === 10) {
       localStorage.removeItem('alreadyFailed')
       return redirect('/login')
     }
-    localStorage.alreadyFailed = 'true'
+    if (localStorage.alreadyFailed) {
+      localStorage.alreadyFailed++
+    } else {
+      localStorage.alreadyFailed = 1
+    }
+
     window.location.reload()
   }, [])
 
