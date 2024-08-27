@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { getLinkPreview } from 'link-preview-js'
 
+export const revalidate = 86400 // revalidate every day
+
 export async function GET(request) {
   const { searchParams } = new URL(request.url)
   const url = searchParams.get('url')
@@ -9,20 +11,9 @@ export async function GET(request) {
     return NextResponse.json({ error: 'URL is required' }, { status: 400 })
   }
 
-  try {
-    const previewData = await getLinkPreview(url, {
-      timeout: 10000,
-      followRedirects: 'follow',
-    })
-    return NextResponse.json(previewData)
-  } catch (error) {
-    console.error('Link preview error:', error)
-    return NextResponse.json(
-      {
-        error: 'Failed to fetch link preview',
-        details: error.message,
-      },
-      { status: 500 },
-    )
-  }
+  const previewData = await getLinkPreview(url, {
+    timeout: 10000,
+    followRedirects: 'follow',
+  })
+  return NextResponse.json(previewData)
 }

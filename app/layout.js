@@ -7,7 +7,7 @@ import Loading from './loading'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Trendspot.',
+  title: 'Trendspot',
   description: 'Trending TikTok Videos',
 }
 
