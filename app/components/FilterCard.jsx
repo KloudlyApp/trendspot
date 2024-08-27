@@ -11,7 +11,6 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { useFilterContext } from '../context/filterContext'
 import { IoClose } from 'react-icons/io5'
-import userPatchLatestNiche from '../api/sanity/user/update-latest-niche/patch-latest-niche'
 
 function FilterCard({ niches, userData }) {
   const [date, setDate] = useState(new Date())
@@ -27,7 +26,16 @@ function FilterCard({ niches, userData }) {
 
   const handleNicheChange = (id) => {
     const filterNiche = niches.find((niche) => niche.id === id)
-    userPatchLatestNiche(userData.sanityID, filterNiche.id)
+    fetch('/api/airtable/users/update-latest-niche', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userID: userData.id,
+        nicheID: filterNiche.id,
+      }),
+    })
     setFilterNiche(filterNiche)
   }
 

@@ -1,30 +1,17 @@
 import airtableFetch from '../airtableFetch'
 
 const getActiveNiches = async () => {
-  const paramsArray = [
-    {
-      key: 'sort[0][field]',
-      value: 'Name',
-    },
-    {
-      key: 'sort[0][direction]',
-      value: 'asc',
-    },
-    {
-      key: 'filterByFormula',
-      value: 'Archived=FALSE()',
-    },
-  ]
-  const params = new URLSearchParams()
-  paramsArray.forEach((param) => {
-    const { key, value } = param
-    params.set(key, value)
-  })
-
-  const apiPath = process.env.NICHES_TABLE_ID + '?' + params.toString()
+  const tableID = process.env.NICHES_TABLE_ID
+  const params = {
+    'fields[]': 'Name',
+    'sort[0][field]': 'Name',
+    'sort[0][direction]': 'asc',
+    filterByFormula: 'Archived=FALSE()',
+  }
 
   // Fetches list of active (non-archived) Niches from Airtable
-  const response = await airtableFetch(apiPath)
+  const response = await airtableFetch(tableID, { params })
+
   return response.records
 }
 
