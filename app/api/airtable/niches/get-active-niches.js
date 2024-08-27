@@ -25,7 +25,6 @@ const getActiveNiches = async () => {
 
   // Fetches list of active (non-archived) Niches from Airtable
   const response = await airtableFetch(apiPath)
-  console.log('response', response)
   return response.records
 }
 

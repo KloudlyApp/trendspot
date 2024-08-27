@@ -12,13 +12,8 @@ export default async function Home() {
   const whopUserData = await getAuthorizedUserFromToken(
     cookies().get('accessToken'),
   )
-  console.log('whopUserData', whopUserData)
-
   const userData = await getSanityUser(whopUserData)
-  console.log('userData', userData)
-
   const niches = await getActiveNiches()
-  console.log('niches', niches)
 
   return (
     <div className='mt-6 lg:w-screen lg:h-screen lg:overflow-y-scroll   md:gap-10 lg:gap-2 md:h-[50%] md:flex md:flex-col lg:mt-6 px-4 gap-6 flex flex-col'>
