@@ -1,10 +1,10 @@
-import formatDateYYYYMMDD from '@/lib/formatDateYYYYMMDD'
+import moment from 'moment'
 import airtableFetch from '../airtableFetch'
 
 const getQueriedPosts = async (Niche, TrendingDate) => {
   const tableID = process.env.POSTS_TABLE_ID
 
-  const dateString = formatDateYYYYMMDD(TrendingDate)
+  const dateString = moment(TrendingDate).format('YYYY-MM-DD')
   const params = {
     filterByFormula: `AND(Niche='${Niche}',{Trending Date}=DATETIME_PARSE('${dateString}'))`,
   }

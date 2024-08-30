@@ -1,5 +1,4 @@
 // next.config.js
 export const images = {
-  domains: ['dummyimage.com'], // Add your domain here
-};
-
+  domains: ['dummyimage.com', 'v5.airtableusercontent.com'], // Add your domain here
+}

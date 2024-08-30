@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useFilterContext } from '../context/filterContext'
 import CardGroup from './CardGroup'
 import TikTokCard from './TikTokCard'
-import formatDateYYYYMMDD from '@/lib/formatDateYYYYMMDD'
+import moment from 'moment'
 
 const CardSection = () => {
   const { filterNiche, filterDate, filterByTag } = useFilterContext()
@@ -12,7 +12,7 @@ const CardSection = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetch(
-        `/api/airtable/posts?niche=${filterNiche.fields.Name}&date=${formatDateYYYYMMDD(filterDate)}`,
+        `/api/airtable/posts?niche=${filterNiche.fields.Name}&date=${moment(filterDate).format('YYYY-MM-DD')}`,
       )
       if (!response.ok) {
         throw new Error('Failed to fetch posts')
