@@ -1,5 +1,4 @@
 const getAuthToken = async (code) => {
-  console.log('code', code)
   const response = await fetch('https://api.whop.com/v5/oauth/token', {
     method: 'POST',
     headers: {
@@ -14,7 +13,6 @@ const getAuthToken = async (code) => {
   })
 
   const data = await response.json()
-  console.log('response data', data)
   return data
 }
 

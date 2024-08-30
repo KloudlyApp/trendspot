@@ -23,7 +23,6 @@ export default async function Home() {
     const latestNiche = niches.find(
       (item) => item.id === userData.fields['Latest Niche'][0],
     )
-    console.log('latest niche', latestNiche)
   } else {
     console.log('userData.records.length = 0')
   }

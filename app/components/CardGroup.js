@@ -1,9 +1,6 @@
-import TikTokCard from './TikTokCard'
 import { Skeleton } from '@/components/ui/skeleton'
 
-const CardGroup = ({ title, cards, data }) => {
-  console.log('data for', title, data)
-
+const CardGroup = ({ title, CardComponent, data }) => {
   return (
     <div className='md:mb-8'>
       <div className=' flex items-center justify-start lg:px-0 lg:ml-0 px-2 lg:my-2'>
@@ -12,7 +9,7 @@ const CardGroup = ({ title, cards, data }) => {
         </h2>
       </div>
 
-      {/* {!data ?
+      {!data ?
         <div className='flex gap-3 my-4 mx-4'>
           {Array.from({ length: 5 }, (_, index) => (
             <Skeleton
@@ -21,9 +18,8 @@ const CardGroup = ({ title, cards, data }) => {
             />
           ))}
         </div>
-      :  */}
-      <div
-        className={`
+      : <div
+          className={`
         w-full flex my-4
         lg:gap-5
         ${
@@ -32,25 +28,25 @@ const CardGroup = ({ title, cards, data }) => {
           : 'overflow-x-scroll'
         }
       `}
-      >
-        {data?.length < 1 ?
-          <p
-            className='
+        >
+          {data?.length < 1 ?
+            <p
+              className='
           h-[260px] ml-4 text-center flex items-center justify-center my-auto
           text-white text-2xl
           lg:text-nowrap lg:ml-0
         '
-          >
-            No results.
-          </p>
-        : data?.map((item) => (
-            <div key={item.id} className='flex-none lg:py-2'>
-              <TikTokCard post={item} />
-            </div>
-          ))
-        }
-      </div>
-      {/* } */}
+            >
+              No results.
+            </p>
+          : data?.map((item) => (
+              <div key={item.id} className='flex-none lg:py-2'>
+                <CardComponent post={item} />
+              </div>
+            ))
+          }
+        </div>
+      }
     </div>
   )
 }

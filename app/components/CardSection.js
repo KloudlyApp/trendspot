@@ -18,7 +18,6 @@ const CardSection = () => {
         throw new Error('Failed to fetch posts')
       }
       const data = await response.json()
-      console.log('data', data)
       setAllPosts(data)
     }
 
@@ -44,17 +43,17 @@ const CardSection = () => {
     <>
       <CardGroup
         title={'top trending videos'}
-        cards={<TikTokCard />}
+        CardComponent={(props) => <TikTokCard {...props} />}
         data={trendingVideos}
       />
       <CardGroup
         title={'top video products'}
-        cards={<TikTokCard />}
+        CardComponent={(props) => <TikTokCard {...props} />}
         data={videoProducts}
       />
       <CardGroup
         title={'top livestream products'}
-        cards={<TikTokCard />}
+        CardComponent={(props) => <TikTokCard {...props} />}
         data={livestreamProducts}
       />
     </>
