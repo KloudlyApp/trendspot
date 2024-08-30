@@ -3,14 +3,14 @@ import { Skeleton } from '@/components/ui/skeleton'
 const CardGroup = ({ title, CardComponent, data }) => {
   return (
     <div className='md:mb-8'>
-      <div className=' flex items-center justify-start lg:px-0 lg:ml-0 px-2 lg:my-2'>
-        <h2 className='bg-[#7A8EFF]  w-fit py-3 px-8 rounded-3xl hover:scale-105 transition-all delay-100  text-white lg:mb-4 capitalize'>
+      <div className='flex items-center justify-start lg:px-0 lg:ml-0 px-2 lg:my-2'>
+        <h2 className='bg-[#7A8EFF] w-fit py-3 px-8 rounded-3xl hover:scale-105 transition-all delay-100 text-white lg:mb-4 capitalize'>
           {title}
         </h2>
       </div>
 
       {!data ?
-        <div className='flex gap-3 my-4 mx-4'>
+        <div className='flex gap-3 my-4 mx-4 overflow-x-scroll'>
           {Array.from({ length: 5 }, (_, index) => (
             <Skeleton
               key={index}
@@ -21,13 +21,7 @@ const CardGroup = ({ title, CardComponent, data }) => {
       : <div
           className={`
         w-full flex my-4
-        lg:gap-5
-        ${
-          data?.length < 1 ?
-            'overflow-x-hidden lg:grid-cols-1'
-          : 'overflow-x-scroll'
-        }
-      `}
+        lg:gap-5 overflow-x-scroll`}
         >
           {data?.length < 1 ?
             <p

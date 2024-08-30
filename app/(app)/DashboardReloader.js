@@ -1,5 +1,6 @@
 'use client'
 
+import { Skeleton } from '@/components/ui/skeleton'
 import { redirect } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -24,9 +25,9 @@ export default function DashboardReloader() {
   }, [])
 
   return (
-    <main className='flex min-h-screen flex-col items-center justify-around p-24'>
-      <h1>Loading...</h1>
-    </main>
+    <div className='h-[calc(100vh-45rem)] md:h-[calc(100vh-33rem)] lg:h-[calc(100vh-4rem)] w-full lg:w-[calc(100vw-28rem)] lg:pr-8'>
+      <Skeleton className='h-full w-full rounded-xl mt-4 lg:my-8' />
+    </div>
   )
   //
   // Hacky fix ends
