@@ -61,7 +61,7 @@ function FilterCard({ niches, userData }) {
     filterDate ? moment(filterDate).format('MMM Do, YYYY') : 'Select Date'
 
   return (
-    <div className='flex flex-col text-white md:w-full lg:mt-8 lg:mb-4 lg:w-full px-2 md:px-1 lg:px-2 mb-2 relative'>
+    <div className='flex flex-col text-white md:w-full lg:mt-8 lg:mb-4 lg:w-full px-2 md:px-1 lg:px-0 mb-2 relative'>
       <div className='flex w-full items-center justify-center  py-4 rounded-md shadow-[#857fff] shadow-md bg-black'>
         <div className='flex justify-evenly w-[90%] md:w-[60%]'>
           <DropdownMenu>
