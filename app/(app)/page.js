@@ -28,7 +28,7 @@ export default async function Home() {
   }
 
   return (
-    <div className='mt-6 lg:w-screen lg:h-screen lg:overflow-y-scroll   md:gap-10 lg:gap-2 md:h-[50%] md:flex md:flex-col lg:mt-6 px-4 gap-6 flex flex-col'>
+    <div className='mt-6 lg:mt-0 lg:w-screen lg:h-screen md:gap-10 lg:gap-2 md:h-[50%] md:flex md:flex-col px-4 gap-6 flex flex-col'>
       <FilterStateProvider initialNiche={latestNiche}>
         <FilterCard niches={niches} userData={userData} />
         <CardSection />
