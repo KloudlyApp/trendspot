@@ -21,16 +21,20 @@ async function Profile() {
 
   return (
     <div className='flex items-center flex-col gap-4  md:px-2  lg:px-4 mt-2 lg:h-fit '>
-      <h1 className='text-3xl mt-6 lg:mt-2  lg:text-4xl font-black text-[#857FFF]'>
-        Trendspot
-      </h1>
-      <div className='mt-6 bg-[#857FFF] p-2 md:p- 6 rounded-full md:rounded-lg md:w-1/2 md:h-[150px] lg:mt-2 md:flex items-center justify-center'>
-        <img src={profilePicUrl} alt='Profile Pic' />
-      </div>
+      <img
+        src='./images/word_logo.svg'
+        alt='Trendspot Logo'
+        className='object-cover h-10 w-64 mt-10 md:mt-8 lg:mt-8'
+      />
+      <img
+        src={profilePicUrl}
+        alt='Profile Picture'
+        className='object-cover bg-[#857FFF] rounded-full md:rounded-xl md:w-1/2 md:h-[150px] mt-6 md:flex items-center justify-center'
+      />
 
-      <p className='font-bold mt-4  lg:mt-2  text-white '>{displayName}</p>
+      <p className='font-bold text-white '>{displayName}</p>
 
-      <div className='flex gap-2'>
+      <div className='flex gap-2 mt-6'>
         <Link href='/'>
           <Button variant='default'>Dashboard</Button>
         </Link>

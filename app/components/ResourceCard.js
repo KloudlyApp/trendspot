@@ -7,7 +7,7 @@ const ResourceCard = ({ post }) => {
   const title = post.fields.Title
   const url = post.fields['URL']
   const image =
-    imageArray.length > 0 ? imageArray[0] : '/images/tiktok_placeholder.jpg'
+    imageArray.length > 0 ? imageArray[0] : '/images/circle_logo_16x9.png'
 
   return <LinkPreviewCard url={url} image={image} title={title} />
 }

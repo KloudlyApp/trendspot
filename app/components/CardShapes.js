@@ -32,7 +32,7 @@ export const LinkPreviewCard = ({ url, image, title, tag }) => {
             {tag}
           </div>
         )}
-        <div className='w-full  flex'>
+        <div className='w-full flex bg-[#857FFF]/30'>
           <img
             src={image}
             alt={title}
