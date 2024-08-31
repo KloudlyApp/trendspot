@@ -12,7 +12,6 @@ import {
 import { useFilterContext } from '../context/filterContext'
 import { IoClose } from 'react-icons/io5'
 import moment from 'moment'
-import { revalidateTag } from 'next/cache'
 
 function FilterCard({ niches, userData }) {
   const [date, setDate] = useState(new Date())
@@ -38,7 +37,6 @@ function FilterCard({ niches, userData }) {
         nicheID: filterNiche.id,
       }),
     })
-    revalidateTag('airtableUser')
     setFilterNiche(filterNiche)
   }
 

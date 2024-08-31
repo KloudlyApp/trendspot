@@ -1,3 +1,4 @@
+import { revalidateTag } from 'next/cache'
 import airtableFetch from '../../airtableFetch'
 
 const patchUserLatestNiche = async (userID, nicheID) => {
@@ -24,6 +25,8 @@ const patchUserLatestNiche = async (userID, nicheID) => {
   console.log('patch options', options)
 
   const response = await airtableFetch(tableID, options)
+
+  revalidateTag('airtableUser')
 
   console.log('patch response', response)
 
