@@ -10,7 +10,10 @@ const getActiveNiches = async () => {
   }
 
   // Fetches list of active (non-archived) Niches from Airtable
-  const response = await airtableFetch(tableID, { params })
+  const response = await airtableFetch(tableID, {
+    params,
+    next: { revalidate: 86400 },
+  })
 
   return response.records
 }

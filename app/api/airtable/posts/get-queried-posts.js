@@ -10,8 +10,10 @@ const getQueriedPosts = async (Niche, TrendingDate) => {
   }
 
   // Fetches list of Posts from Airtable from a given date in a given niche
-  const response = await airtableFetch(tableID, { params })
-  console.log('posts response', response)
+  const response = await airtableFetch(tableID, {
+    params,
+    next: { revalidate: 7000 },
+  })
   return response.records
 }
 

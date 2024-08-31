@@ -15,6 +15,8 @@ const airtableFetch = async (tableID, options = {}) => {
     method,
     headers: { ...authorizationHeader, ...options.headers },
     body: options.body,
+    cache: options.cache,
+    next: options.next,
   }
 
   // console.log('airtable fetch', fetchURL, fetchOptions)

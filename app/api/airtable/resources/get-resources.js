@@ -1,15 +1,9 @@
-import airtableFetch from '../airtableFetch'
-
 const getResources = async () => {
-  const tableID = process.env.RESOURCES_TABLE_ID
-  const params = {
-    filterByFormula: 'AND(Archived=FALSE(),URL)',
+  const response = await fetch('/api/airtable/resources')
+  if (!response.ok) {
+    throw new Error('Failed to fetch resources')
   }
-
-  // Fetches list of active (non-archived) Niches from Airtable
-  const response = await airtableFetch(tableID, { params })
-
-  return response.records
+  return response.json()
 }
 
 export default getResources

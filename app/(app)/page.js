@@ -18,9 +18,9 @@ export default async function Home() {
   const userDataArray = await getAirtableUser(whopUserData)
   const userData = userDataArray.records[0]
 
-  const latestNiche = niches[0]
+  let latestNiche = niches[0]
   if (userData) {
-    const latestNiche = niches.find(
+    latestNiche = niches.find(
       (item) => item.id === userData.fields['Latest Niche'][0],
     )
   } else {
@@ -28,7 +28,7 @@ export default async function Home() {
   }
 
   return (
-    <div className='mt-6 lg:mt-0 lg:w-[calc(100vw-28rem)] px-2 lg:h-screen md:gap-10 lg:gap-2 md:h-[50%] md:flex md:flex-col gap-6 flex flex-col'>
+    <div className='mt-6 lg:mt-0 md:h-[50%] lg:w-[calc(100vw-28rem)] px-2 lg:h-screen flex flex-col gap-6 md:gap-10 lg:gap-2'>
       <FilterStateProvider initialNiche={latestNiche}>
         <FilterCard niches={niches} userData={userData} />
         <CardSection />

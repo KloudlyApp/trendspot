@@ -9,7 +9,10 @@ const getUpdates = async () => {
   }
 
   // Fetches list of active (non-archived) Updates from Airtable, sorted by Posted Date
-  const response = await airtableFetch(tableID, { params })
+  const response = await airtableFetch(tableID, {
+    params,
+    next: { revalidate: 7000 },
+  })
 
   return response.records
 }

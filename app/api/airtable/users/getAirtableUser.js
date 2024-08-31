@@ -10,7 +10,10 @@ const getAirtableUser = async (whopUserData) => {
     filterByFormula: `{Whop ID}='${userID}'`,
   }
 
-  const airtableUserData = await airtableFetch(tableID, { params })
+  const airtableUserData = await airtableFetch(tableID, {
+    params,
+    next: { revalidate: 7000, tags: ['airtableUser'] },
+  })
   return airtableUserData
 }
 
