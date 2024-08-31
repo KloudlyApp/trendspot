@@ -15,7 +15,7 @@ const ResourceCard = ({ post }) => {
       href={url || 'http://www.google.com'}
       target='_blank'
       rel='noopener noreferrer'
-      className='flex gap-72 rounded-2xl shadow-md overflow-hidden relative hover:shadow-lg  duration-150 w-full hover:scale-105  transition-all delay-150 '
+      className='flex gap-72 rounded-2xl shadow-md overflow-hidden relative w-full'
     >
       {
         <div className='w-full  flex'>

@@ -66,7 +66,7 @@ function FilterCard({ niches, userData }) {
         <div className='flex justify-evenly w-[90%] md:w-[60%]'>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <div className='hover:scale-105 transition-all delay-100 cursor-pointer capitalize'>
+              <div className='hover:scale-105 hover:text-[#857fff] transition-all cursor-pointer capitalize'>
                 {filterNiche.fields.Name}
               </div>
             </DropdownMenuTrigger>
@@ -87,7 +87,7 @@ function FilterCard({ niches, userData }) {
           </DropdownMenu>
           <div className='relative'>
             <p
-              className='cursor-pointer hover:scale-105 transition-all delay-100'
+              className='cursor-pointer hover:scale-105 hover:text-[#857fff] transition-all'
               onClick={() => {
                 setToggleCalendar(!toggleCalendar)
               }}
@@ -96,7 +96,7 @@ function FilterCard({ niches, userData }) {
             </p>
           </div>
           <p
-            className='hover:scale-105 transition-all delay-100 cursor-pointer'
+            className='hover:scale-105 hover:text-[#857fff] transition-all cursor-pointer'
             onClick={() => {
               setFilterByTag(!filterByTag)
             }}

@@ -2,7 +2,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 const CardShape = ({ children }) => {
   return (
-    <div className='h-[18.5rem] w-[12.5rem] rounded-xl overflow-hidden flex-shrink-0'>
+    <div className='h-[18.5rem] w-[12.5rem] rounded-xl overflow-hidden flex-shrink-0 hover:scale-[102%] duration-150 transition-all'>
       {children}
     </div>
   )

@@ -45,7 +45,7 @@ function UpdateCard({ date, body, img_url, link_url, link_text }) {
           {link_url && link_text ?
             <a
               href={link_url}
-              className='text-[#7A8EFF] text-right hover:underline hover:scale-105 transition-all'
+              className='text-[#857FFF] text-right hover:underline hover:scale-105 transition-all'
               target='_blank'
               rel='noopener noreferrer'
             >
