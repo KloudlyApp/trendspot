@@ -1,11 +1,9 @@
 import { Button } from '@/components/ui/button'
-
-import React from 'react'
 import { FaDiscord } from 'react-icons/fa'
 import getAuthorizedUserFromToken from '../api/whop/authorize-user'
 import { cookies } from 'next/headers'
 import { primaryColor, textColor } from '@/lib/variables'
-import Link from 'next/link'
+import NavButton from './NavButton'
 
 async function Profile() {
   // Retrieve Whop access token from cookies and fetch Whop user data from Whop
@@ -35,12 +33,8 @@ async function Profile() {
       <p className='font-bold text-white '>{displayName}</p>
 
       <div className='flex gap-2 mt-6'>
-        <Link href='/'>
-          <Button variant='default'>Dashboard</Button>
-        </Link>
-        <Link href='/resources'>
-          <Button variant='default'>Resources</Button>
-        </Link>
+        <NavButton href='/' label='dashboard' />
+        <NavButton href='/resources' label='resources' />
         <a
           href='https://www.discord.com'
           target='_blank'
