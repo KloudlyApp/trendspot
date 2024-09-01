@@ -46,7 +46,9 @@ export default function Login() {
           <h1 className='text-[#857FFF] text-4xl font-bold text-center'>
             Please log in
           </h1>
-          <a href='https://whop.com/hub'>
+          <a
+            href={`https://whop.com/hub/${process.env.WHOP_APP_URL_SLUG}/app/`}
+          >
             <Button variant='active'>Open Whop to login</Button>
           </a>
         </div>
