@@ -1,12 +1,11 @@
 import airtableFetch from '../airtableFetch'
 
-const getAirtableUser = async (whopUserData) => {
+export default async function serverGetAirtableUser(whopUser) {
   const tableID = process.env.USERS_TABLE_ID
 
   // Fetch Airtable's user data corresponding to the Whop user id
-  const userID = whopUserData.id
+  const userID = whopUser.id
   const params = {
-    'fields[]': 'Latest Niche',
     filterByFormula: `{Whop ID}='${userID}'`,
   }
 
@@ -14,7 +13,6 @@ const getAirtableUser = async (whopUserData) => {
     params,
     next: { revalidate: 7000, tags: ['airtableUser'] },
   })
-  return airtableUserData
-}
 
-export default getAirtableUser
+  return airtableUserData?.records?.[0] || {}
+}

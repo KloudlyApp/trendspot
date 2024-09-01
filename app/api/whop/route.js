@@ -1,32 +1,68 @@
 import { NextResponse } from 'next/server'
-import getAuthToken from '@/app/api/whop/get-auth-token'
-import { cookies } from 'next/headers'
+import serverGetAuthToken from './server-get-auth-token'
+import serverAuthorizeUser from './authorize/server-authorize-user'
+import serverGetUser from './user/server-get-user'
+import serverGetAirtableUser from '../airtable/users/server-get-airtable-user'
+import areObjectsEqual from '@/lib/areObjectsEqual'
+import serverPostAirtableUser from '../airtable/users/server-post-airtable-user'
+import serverPatchAirtableUser from '../airtable/users/server-patch-airtable-user'
+import { createSession } from '@/lib/session'
 
-export async function GET(req) {
-  const code = req.nextUrl.searchParams.get('code')
+export async function GET(request) {
+  const code = request.nextUrl.searchParams.get('code')
   if (!code) {
     return NextResponse.json({ error: 'No code provided' }, { status: 400 })
   }
+  console.log('whop callback code', code)
 
-  try {
-    const tokenData = await getAuthToken(code)
-    const accessToken = tokenData.access_token
+  const tokenData = await serverGetAuthToken(code)
+  const accessToken = tokenData.access_token
+  console.log('whop callback accessToken', accessToken)
 
-    // Set the access token as an HTTP-only cookie
-    cookies().set('accessToken', accessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 86400, // 24 hours in seconds
-    })
-
-    // Redirect to dashboard or appropriate page
-    return NextResponse.redirect(new URL('/', req.url))
-  } catch (error) {
-    console.error('Error in Whop callback @ api/whop/route')
-    return NextResponse.json(
-      { error: 'Authentication failed' },
-      { status: 500 },
-    )
+  // Use the token to check if the user account has an active subscription to this product. If not, direct them to the not-subscribed page.
+  const authorized = await serverAuthorizeUser(accessToken)
+  console.log('middleware auth result', authorized)
+  if (!authorized) {
+    return NextResponse.redirect(new URL('/not-subscribed', request.url))
   }
+
+  // If the user passed the previous check they are authorized. Create or update the user entry in Airtable if it doesn't match the Whop user data.
+  const whopUser = await serverGetUser(accessToken)
+  console.log('whop user', whopUser)
+
+  const airtableUser = await serverGetAirtableUser(whopUser)
+  console.log('airtable user')
+  console.dir(airtableUser, { depth: null })
+
+  const updatedAirtableUser = {
+    ...airtableUser,
+    fields: {
+      ...airtableUser.fields,
+      'Whop ID': whopUser.id,
+      Username: whopUser.username,
+      'Profile Image URL': whopUser.profile_pic_url,
+      Email: whopUser.email,
+      Name: whopUser.name,
+    },
+  }
+  console.log('updated user')
+  console.dir(updatedAirtableUser, { depth: null })
+
+  if (!airtableUser || Object.keys(airtableUser).length === 0) {
+    console.log("user doesn't exist yet")
+    serverPostAirtableUser(updatedAirtableUser)
+  } else {
+    const usersMatch = areObjectsEqual(airtableUser, updatedAirtableUser)
+    console.log('do users match?', usersMatch)
+    if (!usersMatch) {
+      serverPatchAirtableUser(updatedAirtableUser)
+    }
+  }
+
+  // Now that Airtable has an accurate record of this user, create a session using the Airtable User Record ID and redirect to the app dashboard.
+  await createSession(updatedAirtableUser.id)
+
+  console.log('session created')
+
+  return NextResponse.redirect(new URL('/', request.url))
 }

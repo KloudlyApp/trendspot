@@ -1,20 +1,32 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import { FaDiscord } from 'react-icons/fa'
-import getAuthorizedUserFromToken from '../api/whop/authorize-user'
-import { cookies } from 'next/headers'
 import { primaryColor, textColor } from '@/lib/variables'
 import NavButton from './NavButton'
+import { useEffect, useState } from 'react'
+import getAirtableUser from '../api/airtable/users/get-airtable-user'
+import { Skeleton } from '@/components/ui/skeleton'
 
-async function Profile() {
-  // Retrieve Whop access token from cookies and fetch Whop user data from Whop
-  const userData = await getAuthorizedUserFromToken(
-    cookies().get('accessToken'),
-  )
+function Profile() {
+  const [user, setUser] = useState({})
+
+  useEffect(() => {
+    const initialize = async () => {
+      const user = await getAirtableUser()
+      setUser(user)
+    }
+
+    initialize()
+  }, [])
 
   const displayName =
-    userData.name || userData.username || userData.email || 'User'
+    user?.fields?.Name ||
+    user?.fields?.Username ||
+    user?.fields?.Email ||
+    'Loading...'
   const profilePicUrl =
-    userData.profile_pic_url ||
+    user?.fields?.['Profile Image URL'] ||
     `https://ui-avatars.com/api/?name=${displayName}&background=${primaryColor}&color=${textColor}`
 
   return (
@@ -24,11 +36,14 @@ async function Profile() {
         alt='Trendspot Logo'
         className='object-cover h-10 w-64 mt-10 md:mt-8 lg:mt-8'
       />
-      <img
-        src={profilePicUrl}
-        alt='Profile Picture'
-        className='object-cover bg-[#857FFF] rounded-full md:rounded-xl md:w-1/2 md:h-[150px] mt-6 md:flex items-center justify-center'
-      />
+      {user?.fields ?
+        <img
+          src={profilePicUrl}
+          alt='Profile Picture'
+          className='object-cover rounded-full md:rounded-xl md:w-1/2 md:h-[150px] mt-6 md:flex items-center justify-center'
+        />
+      : <Skeleton className='object-cover rounded-full md:rounded-xl md:w-1/2 md:h-[150px] mt-6 md:flex items-center justify-center' />
+      }
 
       <p className='font-bold text-white '>{displayName}</p>
 

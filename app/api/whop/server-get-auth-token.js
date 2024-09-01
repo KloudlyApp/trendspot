@@ -1,4 +1,4 @@
-const getAuthToken = async (code) => {
+const serverGetAuthToken = async (code) => {
   const response = await fetch('https://api.whop.com/v5/oauth/token', {
     method: 'POST',
     headers: {
@@ -16,4 +16,4 @@ const getAuthToken = async (code) => {
   return data
 }
 
-export default getAuthToken
+export default serverGetAuthToken

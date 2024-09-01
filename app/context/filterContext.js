@@ -1,12 +1,23 @@
 'use client'
-import { createContext, useContext, useState } from 'react'
+
+import { createContext, useContext, useEffect, useState } from 'react'
+import { getUserNiche } from '../api/airtable/users/latest-niche/get-latest-niche'
 
 const FilterStateContext = createContext()
 
-export const FilterStateProvider = ({ children, initialNiche }) => {
-  const [filterNiche, setFilterNiche] = useState(initialNiche)
+export const FilterStateProvider = ({ children }) => {
+  const [filterNiche, setFilterNiche] = useState({})
   const [filterDate, setFilterDate] = useState(new Date())
   const [filterByTag, setFilterByTag] = useState(false)
+
+  useEffect(() => {
+    const initialize = async () => {
+      const latestNiche = await getUserNiche()
+      setFilterNiche(latestNiche)
+    }
+
+    initialize()
+  }, [])
 
   return (
     <FilterStateContext.Provider

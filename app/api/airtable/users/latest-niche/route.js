@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server'
+import airtableFetch from '../../airtableFetch'
+import { revalidateTag } from 'next/cache'
 
 export async function PATCH(request) {
   const tableID = process.env.USERS_TABLE_ID

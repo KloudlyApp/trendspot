@@ -5,7 +5,7 @@ import getResources from '@/app/api/airtable/resources/get-resources'
 import CardGroup from '@/app/components/CardGroup'
 import ResourceCard from '@/app/components/ResourceCard'
 
-export default async function Resources() {
+export default function Resources() {
   const [resources, setResources] = useState({
     tiktok: [],
     marketing: [],

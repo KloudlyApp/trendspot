@@ -1,27 +1,25 @@
 'use client'
+
 import { useEffect, useState } from 'react'
 import { useFilterContext } from '../context/filterContext'
 import CardGroup from './CardGroup'
 import TikTokCard from './TikTokCard'
-import moment from 'moment'
+import getQueriedPosts from '../api/airtable/posts/get-queried-posts'
 
 const CardSection = () => {
   const { filterNiche, filterDate, filterByTag } = useFilterContext()
 
   const [allPosts, setAllPosts] = useState([])
   useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await fetch(
-        `/api/airtable/posts?niche=${filterNiche.fields.Name}&date=${moment(filterDate).format('YYYY-MM-DD')}`,
+    const initialize = async () => {
+      const posts = await getQueriedPosts(
+        filterNiche?.fields?.Name || 'error',
+        filterDate,
       )
-      if (!response.ok) {
-        throw new Error('Failed to fetch posts')
-      }
-      const data = await response.json()
-      setAllPosts(data)
+      setAllPosts(posts)
     }
 
-    fetchPosts()
+    initialize()
   }, [filterNiche, filterDate])
 
   let posts = allPosts

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Calendar } from '@/components/ui/calendar'
 import {
   DropdownMenu,
@@ -12,9 +12,13 @@ import {
 import { useFilterContext } from '../context/filterContext'
 import { IoClose } from 'react-icons/io5'
 import moment from 'moment'
-import updateUserLatestNiche from '../api/airtable/users/update-latest-niche/update-latest-niche'
+import getActiveNiches from '../api/airtable/niches/get-active-niches'
+import updateUserLatestNiche from '../api/airtable/users/latest-niche/update-latest-niche'
+import getAirtableUser from '../api/airtable/users/get-airtable-user'
 
-function FilterCard({ niches, userData }) {
+function FilterCard() {
+  const [niches, setNiches] = useState([])
+  const [userID, setUserID] = useState('')
   const [date, setDate] = useState(new Date())
   const [toggleCalendar, setToggleCalendar] = useState(false)
   const {
@@ -26,9 +30,21 @@ function FilterCard({ niches, userData }) {
     setFilterByTag,
   } = useFilterContext()
 
+  useEffect(() => {
+    const initialize = async () => {
+      const niches = await getActiveNiches()
+      setNiches(niches)
+
+      const airtableUser = await getAirtableUser()
+      setUserID(airtableUser.id)
+    }
+
+    initialize()
+  }, [])
+
   const handleNicheChange = (id) => {
     const filterNiche = niches.find((niche) => niche.id === id)
-    updateUserLatestNiche(userData.id, filterNiche.id)
+    updateUserLatestNiche(userID, filterNiche.id)
     setFilterNiche(filterNiche)
   }
 
@@ -59,7 +75,7 @@ function FilterCard({ niches, userData }) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <div className='hover:scale-105 hover:text-[#857fff] transition-all cursor-pointer capitalize'>
-                {filterNiche.fields.Name}
+                {filterNiche?.fields?.Name || 'error'}
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-56'>
