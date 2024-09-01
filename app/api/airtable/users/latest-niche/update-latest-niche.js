@@ -1,6 +1,3 @@
-import { revalidateTag } from 'next/cache'
-import airtableFetch from '../../airtableFetch'
-
 const updateUserLatestNiche = async (userID, nicheID) => {
   const response = fetch('/api/airtable/users/update-latest-niche', {
     method: 'PATCH',
