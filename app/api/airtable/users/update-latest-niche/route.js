@@ -1,12 +1,31 @@
 import { NextResponse } from 'next/server'
-import patchUserLatestNiche from './patch-latest-niche'
 
 export async function PATCH(request) {
-  const body = await request.json()
-  const userID = body.userID
-  const nicheID = body.nicheID
+  const tableID = process.env.USERS_TABLE_ID
 
-  const response = await patchUserLatestNiche(userID, nicheID)
+  // Read props from the request body
+  const requestBody = await request.json()
+  const userID = requestBody.userID
+  const nicheID = requestBody.nicheID
+
+  // Assign values to the fields of the options object
+  const options = {
+    recordID: userID,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      fields: {
+        'Latest Niche': [nicheID],
+      },
+    }),
+  }
+  console.log('patch options', options)
+
+  const response = await airtableFetch(tableID, options)
+
+  revalidateTag('airtableUser')
+
+  console.log('patch response', response)
 
   return NextResponse.json(response)
 }

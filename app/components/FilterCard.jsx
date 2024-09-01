@@ -12,6 +12,7 @@ import {
 import { useFilterContext } from '../context/filterContext'
 import { IoClose } from 'react-icons/io5'
 import moment from 'moment'
+import updateUserLatestNiche from '../api/airtable/users/update-latest-niche/update-latest-niche'
 
 function FilterCard({ niches, userData }) {
   const [date, setDate] = useState(new Date())
@@ -27,16 +28,7 @@ function FilterCard({ niches, userData }) {
 
   const handleNicheChange = (id) => {
     const filterNiche = niches.find((niche) => niche.id === id)
-    fetch('/api/airtable/users/update-latest-niche', {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userID: userData.id,
-        nicheID: filterNiche.id,
-      }),
-    })
+    updateUserLatestNiche(userData.id, filterNiche.id)
     setFilterNiche(filterNiche)
   }
 
