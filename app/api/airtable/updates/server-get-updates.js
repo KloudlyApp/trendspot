@@ -1,6 +1,6 @@
 import airtableFetch from '../airtableFetch'
 
-const getUpdates = async () => {
+const serverGetUpdates = async () => {
   const tableID = process.env.UPDATES_TABLE_ID
   const params = {
     'sort[0][field]': 'Date',
@@ -17,4 +17,4 @@ const getUpdates = async () => {
   return response.records
 }
 
-export default getUpdates
+export default serverGetUpdates
