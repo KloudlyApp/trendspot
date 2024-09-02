@@ -50,19 +50,23 @@ export async function GET(request) {
   console.log('updated user')
   console.dir(updatedAirtableUser, { depth: null })
 
+  let sessionID = ''
   if (!airtableUser || Object.keys(airtableUser).length === 0) {
     console.log("user doesn't exist yet")
-    serverPostAirtableUser(updatedAirtableUser)
+    const createdAirtableUser =
+      await serverPostAirtableUser(updatedAirtableUser)
+    sessionID = createdAirtableUser.id
   } else {
     const usersMatch = areObjectsEqual(airtableUser, updatedAirtableUser)
     console.log('do users match?', usersMatch)
     if (!usersMatch) {
       serverPatchAirtableUser(updatedAirtableUser)
     }
+    sessionID = updatedAirtableUser.id
   }
 
   // Now that Airtable has an accurate record of this user, create a session using the Airtable User Record ID and redirect to the app dashboard.
-  await createSession(updatedAirtableUser.id)
+  await createSession(sessionID)
 
   console.log('session created')
 

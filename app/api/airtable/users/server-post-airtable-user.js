@@ -14,5 +14,6 @@ export default async function serverPostAirtableUser(updatedAirtableUser) {
 
   revalidateTag('airtableUser')
 
-  return response
+  const createdUser = response
+  return createdUser
 }
