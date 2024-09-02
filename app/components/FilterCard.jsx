@@ -70,7 +70,7 @@ function FilterCard() {
 
   return (
     <div className='flex flex-col text-white md:w-full lg:mt-8 lg:mb-4 px-2 md:px-1 lg:px-0 mb-2 relative'>
-      <div className='flex w-full items-center justify-center  py-4 rounded-md shadow-[#857fff] shadow-md bg-black'>
+      <div className='flex w-full items-center justify-center  py-4 rounded-md shadow-[0.18px_0.3px_1.75px_-0.8px_rgba(122,142,255,0.5),0.68px_1.14px_6.67px_-1.67px_rgba(122,142,255,0.5),3px_5px_29.15px_-2.5px_rgba(122,142,255,0.5)] bg-black'>
         <div className='flex justify-evenly w-[90%] md:w-[60%]'>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
