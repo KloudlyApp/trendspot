@@ -75,7 +75,7 @@ function FilterCard() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <div className='hover:scale-105 hover:text-[#857fff] transition-all cursor-pointer capitalize'>
-                {filterNiche?.fields?.Name || 'error'}
+                {filterNiche?.fields?.Name || 'Loading...'}
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-56'>

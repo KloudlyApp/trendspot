@@ -13,7 +13,7 @@ const CardSection = () => {
   useEffect(() => {
     const initialize = async () => {
       const posts = await getQueriedPosts(
-        filterNiche?.fields?.Name || 'error',
+        filterNiche?.fields?.Name || 'Loading...',
         filterDate,
       )
       setAllPosts(posts)
