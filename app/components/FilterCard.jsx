@@ -69,9 +69,9 @@ function FilterCard() {
     filterDate ? moment(filterDate).format('MMM Do, YYYY') : 'Select Date'
 
   return (
-    <div className='flex flex-col text-white md:w-full lg:mt-8 lg:mb-4 px-2 md:px-1 lg:px-0 mb-2 relative'>
-      <div className='flex w-full items-center justify-center  py-4 rounded-md shadow-[0.18px_0.3px_1.75px_-0.8px_rgba(122,142,255,0.5),0.68px_1.14px_6.67px_-1.67px_rgba(122,142,255,0.5),3px_5px_29.15px_-2.5px_rgba(122,142,255,0.5)] bg-black'>
-        <div className='flex justify-evenly w-[90%] md:w-[60%]'>
+    <div className='flex flex-col text-white md:w-full lg:mt-8 lg:mb-4 px-2 md:px-1 lg:px-0 mb-2 relative items-center'>
+      <div className='flex items-center w-fit px-8 justify-center rounded-xl h-[40px] shadow-[0.18px_0.3px_1.75px_-0.8px_rgba(122,142,255,0.5),0.68px_1.14px_6.67px_-1.67px_rgba(122,142,255,0.5),3px_5px_29.15px_-2.5px_rgba(122,142,255,0.5)] bg-black'>
+        <div className='flex justify-center gap-[20px] text-nowrap w-[90%] md:w-[60%]'>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <div className='hover:scale-105 hover:text-[#857fff] transition-all cursor-pointer capitalize'>

@@ -5,7 +5,7 @@ const CardGroup = ({ title, CardComponent, data }) => {
   return (
     <div>
       <div className='px-0 ml-0'>
-        <h2 className='bg-[#857FFF] w-fit py-3 px-8 rounded-3xl text-white lg:mb-4 capitalize'>
+        <h2 className='bg-[#857FFF] w-fit py-2 px-4 rounded-2xl text-white lg:mb-4 capitalize'>
           {title}
         </h2>
       </div>
