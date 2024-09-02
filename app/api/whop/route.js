@@ -38,11 +38,13 @@ export async function GET(request) {
     ...airtableUser,
     fields: {
       ...airtableUser.fields,
-      'Whop ID': whopUser.id,
-      Username: whopUser.username,
-      'Profile Image URL': whopUser.profile_pic_url,
-      Email: whopUser.email,
-      Name: whopUser.name,
+      ...(whopUser.id && { 'Whop ID': whopUser.id }),
+      ...(whopUser.username && { Username: whopUser.username }),
+      ...(whopUser.profile_pic_url && {
+        'Profile Image URL': whopUser.profile_pic_url,
+      }),
+      ...(whopUser.email && { Email: whopUser.email }),
+      ...(whopUser.name && { Name: whopUser.name }),
     },
   }
   console.log('updated user')
