@@ -1,8 +1,8 @@
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 const getQueriedPosts = async (Niche, TrendingDate) => {
   const response = await fetch(
-    `/api/airtable/posts?niche=${Niche}&date=${moment(TrendingDate).format('YYYY-MM-DD')}`,
+    `/api/airtable/posts?niche=${Niche}&date=${moment(TrendingDate).format('YYYY-MM-DD')}&timezone=${moment.tz.guess()}`,
   )
   if (!response.ok) {
     throw new Error('Failed to fetch posts')
