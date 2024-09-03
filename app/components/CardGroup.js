@@ -1,6 +1,6 @@
 import { CardSkeleton } from './CardShapes'
 
-const CardGroup = ({ title, CardComponent, data }) => {
+const CardGroup = ({ title, CardComponent, data, loading }) => {
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   return (
     <div>
@@ -11,9 +11,9 @@ const CardGroup = ({ title, CardComponent, data }) => {
       </div>
 
       <div className='flex gap-3 py-4 overflow-x-scroll overflow-y-visible h-[22rem]'>
-        {!data ?
+        {loading ?
           skeletons.map((skeleton) => <CardSkeleton key={skeleton} />)
-        : data?.length < 1 ?
+        : data && data?.length < 1 ?
           <p className='place-self-center text-white text-2xl'>No results.</p>
         : data.map((item) => <CardComponent post={item} key={item.id} />)}
       </div>

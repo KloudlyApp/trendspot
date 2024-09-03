@@ -1,64 +1,66 @@
 'use client'
 
-import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { CardSkeleton, LinkPreviewCard } from './CardShapes'
+import { useFilterContext } from '../context/filterContext'
+import getLinkPreview from '../api/link-preview/get-link-preview'
+import patchPost from '../api/airtable/posts/patch-post'
+import moment from 'moment'
 
 const TikTokCard = ({ post }) => {
-  const [previewData, setPreviewData] = useState({})
   const [loading, setLoading] = useState(true)
+  const [postFields, setPostFields] = useState({
+    url: post.fields['Full Link'],
+    tag: post.fields.Tag,
+    image: post.fields.LinkImage?.[0]?.url,
+    title: post.fields.LinkTitle,
+  })
+  console.log('post')
+  console.dir(post, { depth: null })
+  console.log('post Fields')
+  console.dir(postFields, { depth: null })
 
-  const url = post.fields['Full Link']
-  const tag = post.fields.Tag
+  // This finds the tag that needs to be revalidated
+  const { filterNiche, filterDate } = useFilterContext()
+  const niche = filterNiche.fields.Name
+  const date = moment(filterDate).format('YYYY-MM-DD')
+  const queryTag = `getQueriedPosts-${niche}-${date}`
 
   useEffect(() => {
-    async function fetchPreviewData() {
+    const initialize = async () => {
       setLoading(true)
-      const response = await fetch(
-        `/api/link-preview?url=${encodeURIComponent(url)}`,
-      )
-      const data = await response.json()
 
-      // If it's a TikTok link and there's no image, fetch from TikTok's embed API
-      if (
-        url.includes('tiktok.com') &&
-        (!data.images || data.images.length === 0)
-      ) {
-        const tiktokData = await fetchTikTokInfo(url)
-        data.title = tiktokData.title
-        if (tiktokData.thumbnail_url) {
-          data.images = [tiktokData.thumbnail_url]
-        } else {
-          data.images = ['/images/tiktok_placeholder.jpg']
-        }
+      if (!postFields.image || !postFields.title) {
+        const { image, title } = await getLinkPreview(postFields.url)
+        const updatedPost = await patchPost(post.id, queryTag, {
+          LinkImage: [{ url: image }],
+          LinkTitle: title,
+        })
+        setPostFields({
+          ...postFields,
+          ...(updatedPost.fields?.LinkImage?.[0]?.url && {
+            image: updatedPost.fields.LinkImage[0].url,
+          }),
+          ...(updatedPost.fields?.LinkTitle && {
+            title: updatedPost.fields.LinkTitle,
+          }),
+        })
       }
-      setPreviewData(data)
+
       setLoading(false)
     }
 
-    fetchPreviewData()
-  }, [url])
-
-  const fetchTikTokInfo = async (url) => {
-    const response = await fetch(
-      `https://www.tiktok.com/oembed?url=${encodeURIComponent(url)}`,
-    )
-    const responseJSON = await response.json()
-    return responseJSON
-  }
+    initialize()
+  }, [postFields.url])
 
   if (loading) return <CardSkeleton />
 
-  if (!previewData) {
-    return null
-  }
-
   return (
     <LinkPreviewCard
-      url={url}
-      tag={tag}
-      image={previewData.images[0]}
-      title={previewData.title}
+      url={postFields.url}
+      tag={postFields.tag}
+      image={postFields.image || '/images/circle_logo_16x9.png'}
+      title={postFields.title || postFields.url}
     />
   )
 }
