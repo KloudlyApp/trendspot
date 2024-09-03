@@ -31,7 +31,7 @@ export default function Login() {
 
             <div className='flex gap-2 mt-6'>
               <a
-                href='https://www.discord.com'
+                href='https://discord.gg/wvcdtfXAZ2'
                 target='_blank'
                 rel='noopener noreferrer'
               >
