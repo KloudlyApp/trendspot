@@ -1,6 +1,6 @@
 export default async function serverAuthorizeUser(accessToken) {
   const productIDs = process.env.NEXT_PUBLIC_REQUIRED_PRODUCT.split(', ')
-  const statuses = ['active', 'trialing', 'completed']
+  const statuses = ['completed', 'trialing', 'active']
   const statusesQuery = statuses.map((status) => `statuses=${status}`).join('&')
 
   const response = await fetch(`https://api.whop.com/api/v5/me/memberships`, {
