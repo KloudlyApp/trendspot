@@ -18,7 +18,7 @@ const TikTokCard = ({ post }) => {
 
   // This finds the tag that needs to be revalidated
   const { filterNiche, filterDate } = useFilterContext()
-  const niche = filterNiche.fields.Name
+  const niche = filterNiche?.fields?.Name
   const date = moment(filterDate).format('YYYY-MM-DD')
   const queryTag = `getQueriedPosts-${niche}-${date}`
 
