@@ -1,8 +1,5 @@
 export default async function serverAuthorizeUser(accessToken) {
-  const productIDs =
-    process.env.process.env.NEXT_PUBLIC_REQUIRED_PRODUCT.split(', ')
-  console.log('product ids', productIDs)
-
+  const productIDs = process.env.NEXT_PUBLIC_REQUIRED_PRODUCT.split(', ')
   const statuses = ['active', 'trialing', 'completed']
   const statusesQuery = statuses.map((status) => `statuses=${status}`).join('&')
 
