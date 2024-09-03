@@ -3,6 +3,14 @@ export default async function serverAuthorizeUser(accessToken) {
   const statuses = ['active', 'trialing', 'completed']
   const statusesQuery = statuses.map((status) => `statuses=${status}`).join('&')
 
+  const response = await fetch(`https://api.whop.com/api/v5/me/memberships`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+  const allMemberships = await response.json()
+  console.log('All user memberships', allMemberships)
+
   for (let i = 0; i < productIDs.length; i++) {
     const productID = productIDs[i]
 
