@@ -25,7 +25,7 @@ export async function PATCH(request) {
 
   const response = await airtableFetch(tableID, options)
 
-  revalidateTag('airtableUser')
+  revalidateTag('getAirtableUser')
 
   console.log('patch response', response)
 

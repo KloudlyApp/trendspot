@@ -14,7 +14,7 @@ export default async function serverPatchAirtableUser(updatedAirtableUser) {
     body: JSON.stringify({ fields: updatedAirtableUser.fields }),
   })
 
-  revalidateTag('airtableUser')
+  revalidateTag('getAirtableUser')
 
   return response
 }

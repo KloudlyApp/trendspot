@@ -6,15 +6,10 @@ export async function GET(request) {
   const tableID = process.env.USERS_TABLE_ID
   const { userID } = await verifySession(request)
 
-  console.log('get airtable user route info', tableID, userID)
-
   const airtableUserData = await airtableFetch(tableID, {
     recordID: userID,
-    next: { revalidate: 7000, tags: ['airtableUser'] },
+    next: { revalidate: 7000, tags: ['getAirtableUser'] },
   })
-
-  console.log('user get route response')
-  console.dir(airtableUserData, { depth: null })
 
   return NextResponse.json(airtableUserData)
 }

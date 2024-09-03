@@ -12,7 +12,7 @@ export default async function serverPostAirtableUser(updatedAirtableUser) {
     body: JSON.stringify({ fields: updatedAirtableUser.fields }),
   })
 
-  revalidateTag('airtableUser')
+  revalidateTag('getAirtableUser')
 
   const createdUser = response
   return createdUser
