@@ -15,10 +15,6 @@ const TikTokCard = ({ post }) => {
     image: post.fields.LinkImage?.[0]?.url,
     title: post.fields.LinkTitle,
   })
-  console.log('post')
-  console.dir(post, { depth: null })
-  console.log('post Fields')
-  console.dir(postFields, { depth: null })
 
   // This finds the tag that needs to be revalidated
   const { filterNiche, filterDate } = useFilterContext()

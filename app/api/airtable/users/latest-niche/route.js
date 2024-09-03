@@ -21,13 +21,10 @@ export async function PATCH(request) {
       },
     }),
   }
-  console.log('patch options', options)
 
   const response = await airtableFetch(tableID, options)
 
   revalidateTag('getAirtableUser')
-
-  console.log('patch response', response)
 
   return NextResponse.json(response)
 }

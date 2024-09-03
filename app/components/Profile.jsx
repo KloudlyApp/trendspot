@@ -51,7 +51,7 @@ function Profile() {
         <NavButton href='/' label='dashboard' />
         <NavButton href='/resources' label='resources' />
         <a
-          href='https://www.discord.com'
+          href='https://discord.gg/wvcdtfXAZ2'
           target='_blank'
           rel='noopener noreferrer'
         >

@@ -13,26 +13,20 @@ export async function GET(request) {
   if (!code) {
     return NextResponse.json({ error: 'No code provided' }, { status: 400 })
   }
-  console.log('whop callback code', code)
 
   const tokenData = await serverGetAuthToken(code)
   const accessToken = tokenData.access_token
-  console.log('whop callback accessToken', accessToken)
 
   // Use the token to check if the user account has an active subscription to this product. If not, direct them to the not-subscribed page.
   const authorized = await serverAuthorizeUser(accessToken)
-  console.log('middleware auth result', authorized)
   if (!authorized) {
     return NextResponse.redirect(new URL('/not-subscribed', request.url))
   }
 
   // If the user passed the previous check they are authorized. Create or update the user entry in Airtable if it doesn't match the Whop user data.
   const whopUser = await serverGetUser(accessToken)
-  console.log('whop user', whopUser)
 
   const airtableUser = await serverGetAirtableUser(whopUser)
-  console.log('airtable user')
-  console.dir(airtableUser, { depth: null })
 
   const updatedAirtableUser = {
     ...airtableUser,
@@ -47,18 +41,14 @@ export async function GET(request) {
       ...(whopUser.name && { Name: whopUser.name }),
     },
   }
-  console.log('updated user')
-  console.dir(updatedAirtableUser, { depth: null })
 
   let sessionID = ''
   if (!airtableUser || Object.keys(airtableUser).length === 0) {
-    console.log("user doesn't exist yet")
     const createdAirtableUser =
       await serverPostAirtableUser(updatedAirtableUser)
     sessionID = createdAirtableUser.id
   } else {
     const usersMatch = areObjectsEqual(airtableUser, updatedAirtableUser)
-    console.log('do users match?', usersMatch)
     if (!usersMatch) {
       serverPatchAirtableUser(updatedAirtableUser)
     }
@@ -67,8 +57,6 @@ export async function GET(request) {
 
   // Now that Airtable has an accurate record of this user, create a session using the Airtable User Record ID and redirect to the app dashboard.
   await createSession(sessionID)
-
-  console.log('session created')
 
   return NextResponse.redirect(new URL('/', request.url))
 }

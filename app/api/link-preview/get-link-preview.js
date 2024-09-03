@@ -15,7 +15,6 @@ export default async function getLinkPreview(url) {
     if (tiktokData?.thumbnail_url) {
       data.images = [tiktokData?.thumbnail_url]
     } else {
-      console.log('PLACEHOLDER IMAGE URL SELECTED')
       data.images = [
         'https://res.cloudinary.com/dykwopdox/image/upload/v1725333362/tiktok_placeholder_htfbon.jpg',
       ]
