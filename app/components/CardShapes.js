@@ -28,7 +28,7 @@ export const LinkPreviewCard = ({ url, image, title, tag }) => {
         className='flex gap-72 rounded-2xl shadow-md overflow-hidden relative w-full'
       >
         {tag && (
-          <div className='h-10 w-fit flex justify-center items-center bg-[#857FFF]/60 text-nowrap px-4 text-white text-center rounded-ts-2xl rounded-ee-2xl absolute'>
+          <div className='h-10 w-fit flex justify-center items-center bg-[#857FFF]/80 text-nowrap px-4 text-white text-center rounded-ts-2xl rounded-ee-2xl absolute'>
             {tag}
           </div>
         )}
@@ -40,7 +40,7 @@ export const LinkPreviewCard = ({ url, image, title, tag }) => {
           />
         </div>
 
-        <div className='absolute inset-x-0 bottom-0 bg-[#857FFF]/60 p-4 flex place-items-center h-16'>
+        <div className='absolute inset-x-0 bottom-0 bg-[#857FFF]/80 p-4 flex place-items-center h-16'>
           <h1 className='font-bold text-white overflow-hidden text-ellipsis whitespace-normal break-words max-h-11 text-sm'>
             {title}
           </h1>
