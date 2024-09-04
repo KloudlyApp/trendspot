@@ -6,6 +6,13 @@ export async function GET(request) {
   const tableID = process.env.USERS_TABLE_ID
   const { userID } = await verifySession(request)
 
+  if (!userID) {
+    console.log(
+      'GET user - no userID returned by verifySession, redirecting to login',
+    )
+    return NextResponse.redirect(new URL('/login', request.nextUrl))
+  }
+
   const airtableUserData = await airtableFetch(tableID, {
     recordID: userID,
     next: { revalidate: 7000, tags: ['getAirtableUser'] },
