@@ -6,7 +6,7 @@ import { revalidateTag } from 'next/cache'
 const tableID = process.env.POSTS_TABLE_ID
 
 export async function GET(request) {
-  const { searchParams } = new URL(request.url)
+  const { searchParams } = new URL(request.nextUrl)
   const niche = searchParams.get('niche')
   const date = moment(searchParams.get('date')).format('YYYY-MM-DD')
   const timezone = searchParams.get('timezone') || 'utc'

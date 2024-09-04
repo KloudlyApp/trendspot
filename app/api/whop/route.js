@@ -19,14 +19,6 @@ export async function GET(request) {
   console.log('authorize user - tokenData', tokenData)
   const accessToken = tokenData.access_token
 
-  //   // Use the token to check if the user account has an active subscription to this product. If not, direct them to the not-subscribed page.
-  // const authorized = await serverAuthorizeUser(accessToken)
-  // console.log('authorize user - authorized', authorized)
-  // if (!authorized) {
-  //   return NextResponse.redirect(new URL('/not-subscribed', request.url))
-  // }
-
-  // // If the user passed the previous check they are authorized. Create or update the user entry in Airtable if it doesn't match the Whop user data.
   const whopUser = await serverGetUser(accessToken)
   console.log('authorize user - whopUser', whopUser)
 
@@ -66,7 +58,7 @@ export async function GET(request) {
   await createSession(sessionID)
   console.log('created session')
 
-  console.log('authorize user - redirecting to request.url:', request.url)
-  console.log('authorize user - request.nextUrl is:', request.nextUrl)
-  return NextResponse.redirect(new URL('/', request.url))
+  console.log('Logged in, redirecting to dashboard:', request.nextUrl.hostname)
+
+  return NextResponse.redirect(new URL('/', request.nextUrl))
 }

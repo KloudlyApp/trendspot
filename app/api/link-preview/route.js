@@ -4,7 +4,7 @@ import { getLinkPreview } from 'link-preview-js'
 export const revalidate = 86400 // revalidate every day
 
 export async function GET(request) {
-  const { searchParams } = new URL(request.url)
+  const { searchParams } = new URL(request.nextUrl)
   const url = searchParams.get('url')
 
   if (!url) {

@@ -9,8 +9,6 @@ export default async function middleware(request) {
   const isProtectedRoute = protectedRoutes.includes(path)
   const isPublicRoute = publicRoutes.includes(path)
   console.log('middleware - requested path:', path)
-  console.log('middleware - request.url:', request.url)
-  console.log('middleware - request.nextUrl is:', request.nextUrl)
 
   // Users without a session trying to access protected pages will be sent to login
   if (isProtectedRoute) {
