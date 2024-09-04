@@ -4,9 +4,9 @@ import { NextResponse } from 'next/server'
 
 export async function GET(request) {
   const tableID = process.env.USERS_TABLE_ID
-  const { userID } = await verifySession(request)
+  const { isAuthorized, userID } = await verifySession(request)
 
-  if (!userID) {
+  if (!isAuthorized) {
     console.log(
       'GET user - no userID returned by verifySession, redirecting to login',
     )
