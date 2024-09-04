@@ -55,7 +55,7 @@ const TikTokCard = ({ post }) => {
     <LinkPreviewCard
       url={postFields.url}
       tag={postFields.tag}
-      image={postFields.image || '/images/circle_logo_16x9.png'}
+      image={postFields.image || '/circle_logo_16x9.png'}
       title={postFields.title || postFields.url}
     />
   )

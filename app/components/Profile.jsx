@@ -32,7 +32,7 @@ function Profile() {
   return (
     <div className='flex items-center flex-col gap-4  md:px-2  lg:px-4 mt-2 lg:h-fit '>
       <img
-        src='./images/word_logo.svg'
+        src='./word_logo.svg'
         alt='Trendspot Logo'
         className='object-cover h-10 w-64 mt-10 md:mt-8 lg:mt-8'
       />
