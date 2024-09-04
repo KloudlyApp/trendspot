@@ -9,7 +9,7 @@ export async function GET() {
 
   const response = await airtableFetch(tableID, {
     params,
-    next: { tags: ['getResources'] },
+    next: { revalidate: 7000, tags: ['getResources'] },
   })
 
   return NextResponse.json(response.records)

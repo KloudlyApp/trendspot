@@ -11,7 +11,7 @@ const serverGetUpdates = async () => {
   // Fetches list of active (non-archived) Updates from Airtable, sorted by Posted Date
   const response = await airtableFetch(tableID, {
     params,
-    next: { tags: ['getUpdates'] },
+    next: { revalidate: 7000, tags: ['getUpdates'] },
   })
 
   return response.records
