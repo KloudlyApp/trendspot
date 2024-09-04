@@ -14,7 +14,7 @@ const serverGetAuthToken = async (code) => {
   const data_TCL = await response_TCL.json()
   console.log('serverGetAuthToken - TCL data:', data_TCL)
 
-  if (!data_TS.access_token) {
+  if (!data_TCL.access_token) {
     const response_TS = await fetch('https://api.whop.com/v5/oauth/token', {
       method: 'POST',
       headers: {
