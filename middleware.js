@@ -14,7 +14,10 @@ export default async function middleware(request) {
   if (isProtectedRoute) {
     const { isAuthorized, userID } = await verifySession(request)
     console.log('middleware - session info:', isAuthorized, userID)
-    // no return NextResponse is needed. verifySession handles that redirect.
+
+    if (!isAuthorized) {
+      return NextResponse.redirect(new URL('/login', request.nextUrl))
+    }
   }
 
   // Users with a session mistakenly going to a login route will be sent to the dashboard
