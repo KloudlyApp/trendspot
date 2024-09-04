@@ -8,12 +8,15 @@ import ResourceCard from '@/app/components/ResourceCard'
 export default function Resources() {
   const GROUPS = ['TikTok Resources', 'Content Resources', 'Other Resources']
 
+  const [loading, setLoading] = useState(true)
   const [resources, setResources] = useState(
     Object.fromEntries(GROUPS.map((group) => [group, []])),
   )
 
   useEffect(() => {
     const fetchResources = async () => {
+      setLoading(true)
+
       const allResources = await getResources()
       const groupedResources = GROUPS.reduce((accumulator, group) => {
         accumulator[group] = allResources.filter(
@@ -22,6 +25,8 @@ export default function Resources() {
         return accumulator
       }, {})
       setResources(groupedResources)
+
+      setLoading(false)
     }
 
     fetchResources()
@@ -35,6 +40,7 @@ export default function Resources() {
           title={group}
           CardComponent={(props) => <ResourceCard {...props} />}
           data={resources[group]}
+          loading={loading}
         />
       ))}
     </div>
