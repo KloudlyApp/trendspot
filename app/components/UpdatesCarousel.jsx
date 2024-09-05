@@ -34,8 +34,8 @@ export function UpdatesCarousel({ data }) {
 
   const carouselButtons = () => (
     <>
-      <CarouselPrevious className='bg-[#857FFF]/20 border-none hover:bg-[#857FFF]/80' />
-      <CarouselNext className='bg-[#857FFF]/20 border-none hover:bg-[#857FFF]/80' />
+      <CarouselPrevious className='bg-[#857FFF]/50 border-none hover:bg-[#857FFF]' />
+      <CarouselNext className='bg-[#857FFF]/50 border-none hover:bg-[#857FFF]' />
     </>
   )
 
