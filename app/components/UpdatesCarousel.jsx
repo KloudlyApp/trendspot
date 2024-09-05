@@ -10,10 +10,12 @@ import UpdateCard from './UpdateCard'
 
 export function UpdatesCarousel({ data }) {
   const validData =
-    data?.filter(
-      (update) =>
-        update && update.fields && update.fields.Body && update.fields.Date,
-    ) || []
+    data
+      ?.filter(
+        (update) =>
+          update && update.fields && update.fields.Body && update.fields.Date,
+      )
+      .sort((a, b) => new Date(b.fields.Date) - new Date(a.fields.Date)) || []
 
   const renderCarouselItem = (update, idx) => (
     <CarouselItem key={update.id || idx} className='mt-2'>
